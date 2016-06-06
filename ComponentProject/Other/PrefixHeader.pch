@@ -1,0 +1,74 @@
+//
+//  PrefixHeader.pch
+//  ComponentProject
+//
+//  Created by 刘成 on 16/6/6.
+//  Copyright © 2016年 liucheng. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#pragma mark - 分类
+#import "UINavigationBar+Awesome.h"
+#import "UIColor+Common.h"
+#import "NSDate+LC.h"
+#import "NSDateFormatter+Category.h"
+#import "UIView+Extension.h"
+#import "UIImage+Extention.h"
+#import "NSString+Extention.h"
+#import "UIImageView+Extention.h"
+
+#pragma mark - 工具类
+#import "Check.h"
+#import "Common.h"
+#import "UserInfoModel.h"
+#import <AFNetworking.h>
+#import <SVProgressHUD.h>
+
+//数据请求相关
+#import "ErrorPromt.h"
+#import "HTTPConstString.h"
+#import "HTTPHeader.h"
+
+#pragma mark - 通用设置
+#define DEF_COLOR(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
+
+#define DEF_COLOR_A(r,g,b,a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+
+//获取屏幕宽度
+#define KScreenWidth  [UIScreen mainScreen].bounds.size.width
+
+//获取屏幕高度
+#define KScreenHeight [UIScreen mainScreen].bounds.size.height
+
+//是否为iphone4
+#define IS_IPHONE_4 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )480 ) < DBL_EPSILON )
+
+//是否为iphone5
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
+//是否为iphone6
+#define IS_IPHONE_6 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )667 ) < DBL_EPSILON )
+
+//是否为iphone6Plus
+#define IS_IPHONE_6PLUS ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )736 ) < DBL_EPSILON )
+
+// 单例
+#undef	AS_SINGLETON
+#define AS_SINGLETON( __class ) \
++ (__class *)sharedInstance; \
+
+#undef	DEF_SINGLETON
+#define DEF_SINGLETON( __class ) \
++ (__class *)sharedInstance \
+{ \
+static dispatch_once_t once; \
+static __class * __singleton__; \
+dispatch_once( &once, ^{ __singleton__ = [[__class alloc] init]; } ); \
+return __singleton__; \
+}
+
+#pragma mark - 应用内相关设置
+
+#endif /* PrefixHeader_pch */
