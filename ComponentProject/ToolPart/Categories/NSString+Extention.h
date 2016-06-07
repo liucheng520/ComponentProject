@@ -32,6 +32,8 @@
  */
 - (NSInteger)heightWithFont:(UIFont* )font width:(CGFloat)width;
 
+- (NSInteger)widthWithFont:(UIFont *)font height:(CGFloat)height;
+
 /**
  *  偏好设置：存字符串（手势密码）
  */

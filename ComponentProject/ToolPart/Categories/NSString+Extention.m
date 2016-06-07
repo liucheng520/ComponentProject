@@ -33,6 +33,15 @@
     return ceilf(bounds.size.height);
 }
 
+- (NSInteger)widthWithFont:(UIFont *)font height:(CGFloat)height
+{
+    CGRect bounds = CGRectZero;
+    
+    bounds = [self boundingRectWithSize:CGSizeMake(MAXFLOAT, height) options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil];
+    
+    return ceilf(bounds.size.width);
+}
+
 + (void)saveString:(NSString *)string Key:(NSString *)key
 {
     [[NSUserDefaults standardUserDefaults] setObject:string forKey:key];
