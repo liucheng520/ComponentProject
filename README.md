@@ -1,5 +1,5 @@
-# 组件化框架
-# ThreeParty
+#      组件化框架
+#    ThreeParty
 1. LCMenuBar  －  菜单栏
 2. LCPlaceholderTextView － 给textField添加placeHolder
 3. TPKeyboardAvoiding － 自动适应textField，textView等输入时与键盘距离
@@ -9,24 +9,26 @@
 7. BlurGlass － 毛玻璃效果
 8. EnCrypting － 加密 1）AES加密 2）zip 压缩，解压DATA
 
-# ToolPart
-# TOOLClass
+#   ToolPart
+
+
+#TOOLClass
 1. PlaceModel  - 基于高德定位
 2. GeogerChange  － 高德，百度坐标转码
 3. check，common 通用工具
 4. ZWEmoji － emoj Unicode 互转
 
-＃HTTPTOOL
+#HTTPTOOL
 1.AFNHttpTool － AFNetworking 包装，去除耦合
 2.ErrorPromt  - 错误提示统一处理
 3.HTTPConstString - 错误提示
 
-＃Categories (分类工具)
+#Categories (分类工具)
 
-＃BasePart
+#    BasePart
 1.BaseManger - rootviewController选择
 2.BaseTableViewCell － 快捷传键方法封装
 3.BaseNavigationController － 通用导航栏封装，图片，文字根据情况自己修改
 4.UserInfoModel － 个人信息model，涉及归档，登录判断，单例等
 
-＃File （pod使用）
+#    File （pod使用）
