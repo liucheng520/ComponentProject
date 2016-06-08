@@ -162,15 +162,25 @@
     NSInteger next = _indexShow + 1;
     if (next > _arrImage.count - 1)
         next = 0;
-    NSInteger four = _indexShow + 2;
-    if (four > _arrImage.count - 1)
-        four = 0;
     _pageControl.currentPage = _indexShow;
+    
     NSString* prevImage = [_arrImage objectAtIndex:prev];
     NSString* curImage = [_arrImage objectAtIndex:_indexShow];
     NSString* nextImage = [_arrImage objectAtIndex:next];
-     NSString* fourImage = [_arrImage objectAtIndex:four];
-
+    
+    if(_bWebImage)
+    {
+        [self setWebImage:_imgPrev imgUrl:prevImage];
+        [self setWebImage:_imgCurrent imgUrl:curImage];
+        [self setWebImage:_imgNext imgUrl:nextImage];
+    }
+    else
+    {
+        _imgPrev.image = [UIImage imageNamed:prevImage];
+        _imgCurrent.image = [UIImage imageNamed:curImage];
+        _imgNext.image = [UIImage imageNamed:nextImage];
+    }
+    
     [_scView scrollRectToVisible:CGRectMake(self.frame.size.width, 0, self.frame.size.width, self.frame.size.height) animated:NO];
     
     if (_iDisplayTime > 0)

@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SSZipArchive.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,12 +47,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>21672CF006734067790C10F20B795A0B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>351668C6F517A46D8B87A82547E45579</key>
+		<key>13E2A9740EDF5DC0B10EBFD3A90840AC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,7 +57,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>81563122983F1A017D837A4627ECC2C6</key>
+		<key>73D0EEAC87F67AD558BBF695B78BA9AC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -73,6 +73,16 @@
 			<true/>
 		</dict>
 		<key>9EAB3E42EF957541E6C3C76D35FD008E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B290B10291D2F424C400EF3A76DC6D2E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DF6BE21C30B73DF036C71285EDA2B1DF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

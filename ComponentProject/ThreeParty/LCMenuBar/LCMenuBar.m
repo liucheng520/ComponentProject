@@ -70,7 +70,9 @@
     if (index < self.buttons.count) {
         menuBarButton *btn = self.buttons[index];
         [btn setTitle:title forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:imgName] forState:UIControlStateNormal];
+        if(imgName.length){
+           [btn setImage:[UIImage imageNamed:imgName] forState:UIControlStateNormal];
+        }
         [btn.titleLabel sizeToFit];
         
         if (index == 0) {
