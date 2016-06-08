@@ -19,16 +19,16 @@
 4. ZWEmoji － emoj Unicode 互转
 
 #HTTPTOOL
-1.AFNHttpTool － AFNetworking 包装，去除耦合
-2.ErrorPromt  - 错误提示统一处理
-3.HTTPConstString - 错误提示
+1. AFNHttpTool － AFNetworking 包装，去除耦合
+2. ErrorPromt  - 错误提示统一处理
+3. HTTPConstString - 错误提示
 
 #Categories (分类工具)
 
 #    BasePart
-1.BaseManger - rootviewController选择
-2.BaseTableViewCell － 快捷传键方法封装
-3.BaseNavigationController － 通用导航栏封装，图片，文字根据情况自己修改
-4.UserInfoModel － 个人信息model，涉及归档，登录判断，单例等
+1. BaseManger - rootviewController选择
+2. BaseTableViewCell － 快捷传键方法封装
+3. BaseNavigationController － 通用导航栏封装，图片，文字根据情况自己修改
+4. UserInfoModel － 个人信息model，涉及归档，登录判断，单例等
 
 #    File （pod使用）
