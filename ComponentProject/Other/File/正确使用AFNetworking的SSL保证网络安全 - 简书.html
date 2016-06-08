@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<!--[if IE 6]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 7]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="ie ie8"><![endif]-->
+<!--[if IE 9]><html class="ie ie9"><![endif]-->
+<!--[if !IE]><!-->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style=""><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="description" content="  AFNetworking,iOS开发中，以其优雅的结构设计和简便的调用方式，使其成为了最流行的网络开源库之一（另一个应该算是ASI了，但经久失修不维护的原因，已经不是首选）。  我们在大多数情况下，都能够正确使用AFNetworking的功能，但在网络安全日趋严峻的今天，加入SSL使用HTTPS已经成为了很多大中型网站的首选；这点在国外尤其流行，例如Google已经全站HTTPS。  本文便主要描述了如何正确使用AFNetworking中的SSL功能。详细步骤如下：1、获取到站点的证书：  我们可以使用以下openssl命令来获取到服务器的公开二进制证书（以google为例...">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/4102b817ff2f">
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/2337318">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="正确使用AFNetworking的SSL保证网络安全" property="twitter:title">
+  <meta content="  AFNetworking,iOS开发中，以其优雅的结构设计和简便的调用方式，使其成为了最流行的网络开源库之一（另一个应该算是ASI了，但经久失修不维护的原因，已经不是首选）。  我们在大多数情况下，都能够正确使用AFNetworking的功能，但在网络安全日趋严峻的今天，加入SSL使用HTTPS已经成为了很多大中型网站的首选；这点在国外尤其流行，例如Google已经全站HTTPS。  本文便主要描述了如何正确使用AFNetworking中的SSL功能。详细步骤如下：1、获取到站点的证书：  我们可以使用以下openssl命令来获取到服务器的公开二进制证书（以google为例..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/4102b817ff2f" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="正确使用AFNetworking的SSL保证网络安全">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/4102b817ff2f">
+  <meta property="og:description" content="  AFNetworking,iOS开发中，以其优雅的结构设计和简便的调用方式，使其成为了最流行的网络开源库之一（另一个应该算是ASI了，但经久失修不维护的原因，已经不是首选）。  我们在大多数...">
+
+    <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/296122-ae2dd8130f0ebbca.png">
+    <meta property="og:image:width" content="810">
+    <meta property="og:image:height" content="150">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/296122-6f830e762e6569e0.png">
+    <meta property="og:image:width" content="258">
+    <meta property="og:image:height" content="72">
+    <meta property="og:image:type" content="image/png">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/2337318">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/2337318">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+  <title>正确使用AFNetworking的SSL保证网络安全 - 简书</title>
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="jQXbdLuthNpqOtXrouM7VD/CbuSjS2KQSyvav9FeuDS83n5aT/pkyFGdjWNRow5MEFoR5xLPyr1Qt7socXik9A==">
+  <!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="stylesheet" media="all" href="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/base-f935477e8faba16f29c6f9e4f0e1d032.css">
+
+    <link rel="stylesheet" media="all" href="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/reading-note-4158a6eeb7c4e4a9fd15332778cfb52c.css">
+  <link rel="stylesheet" media="all" href="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/base-read-mode-64acccf6966299cfa3d580140a2582fe.css">
+  <script src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/push.js"></script><script src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/ga.js" async="" type="text/javascript"></script><script src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/hm.js"></script><script src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/modernizr-613ea63b5aa2f0e2a1946e9c28c8eedb.js"></script>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if IE 8]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
+  <!--[if lt IE 9]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
+  <link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/57-b426758a1fcfb30486f20fd073c3b8ec.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/72-feca4b183b9d29fd188665785dc7a7f1.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/76-ba757f1ad3421192ce7192170393d2b0.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/114-8dae53b3bcea3f06bb139e329d1edab3.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/120-fa315ee0177dba4c55d4f66d4129b47f.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/152-052f5799bec8fb3aa624bdc72ef5bd1d.png" sizes="152x152">
+  <!-- Baidu stats -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+<style type="text/css"></style></head>
+
+<body class="post output zh cn mac mozilla reader-day-mode reader-font2" data-js-module="note-show" data-locale="zh-CN">
+  
+  <div style="" class="navbar navbar-jianshu shrink">
+  <div class="dropdown">
+    <a class="dropdown-toggle logo" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+      简
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+      <li><a href="http://www.jianshu.com/"><i class="fa fa-home"></i> 首页</a></li>
+      <li><a href="http://www.jianshu.com/collections"><i class="fa fa-th"></i> 专题</a></li>
+      <li><a href="http://www.jianshu.com/user_invitations"><i class="fa fa-money"></i> 发钱啦</a></li>
+    </ul>
+  </div>
+</div>
+<div class="navbar-user">
+    <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+      <i class="fa fa-user"></i> 注册
+</a>    <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      <i class="fa fa-sign-in"></i> 登录
+</a>    <a class="daytime set-view-mode pull-right" href="javascript:void(0)"><i class="fa fa-moon-o"></i></a>
+</div>
+<div class="navbar navbar-jianshu expanded">
+  <div class="dropdown">
+      <a class="active logo" role="button" data-original-title="个人主页" data-container="div.expanded" href="http://www.jianshu.com/">
+        <b>简</b><i class="fa fa-home"></i><span class="title">首页</span>
+</a>      <a data-toggle="tooltip" data-placement="right" data-original-title="专题" data-container="div.expanded" href="http://www.jianshu.com/collections">
+        <i class="fa fa-th"></i><span class="title">专题</span>
+</a>    <a class="ad-selector" href="http://www.jianshu.com/apps">
+      <i class="fa fa-mobile"></i><span class="title">下载手机应用</span>
+</a>    <div class="ad-container ">
+      <div class="ad-pop">
+        <img class="ad-logo" src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/114-8dae53b3bcea3f06bb139e329d1edab3.png" alt="114">
+        <p class="ad-title">简书</p>
+        <p class="ad-subtitle">交流故事，沟通想法</p>
+        <img class="ad-qrcode" src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/download-app-qrcode-053849fa25f9b44573ef8dd3c118a20f.png" alt="Download app qrcode">
+        <div>
+          <a class="ad-link" href="https://itunes.apple.com/cn/app/jian-shu/id888237539?ls=1&amp;mt=8">iOS</a>·
+          <a class="ad-link" href="http://downloads.jianshu.io/apps/haruki/JianShu-1.10.5.apk">Android</a>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <div class="nav-user">
+      <a href="#view-mode-modal" data-toggle="modal"><i class="fa fa-font"></i><span class="title">显示模式</span></a>
+
+      <a class="signin" data-signin-link="true" data-toggle="modal" data-placement="right" data-original-title="登录" data-container="div.expanded" href="http://www.jianshu.com/sign_in">
+        <i class="fa fa-sign-in"></i><span class="title">登录</span>
+</a>    </div>
+  </div>
+
+  
+    <div class="fixed-btn">
+    <a class="go-top hide-go-top" href="#"> <i class="fa fa-angle-up"></i></a>
+    <a class="qrcode" data-target="#bottom-qrcode" data-toggle="modal" href="javascript:void(0)"><i class="fa fa-qrcode"></i></a>
+    <a data-original-title="写篇文章" class="writer" href="http://www.jianshu.com/writer#/" data-toggle="tooltip" data-placement="left" title=""><i class="fa fa-pencil"></i></a>
+    <!-- qrcode modal -->
+    <div id="bottom-qrcode" class="modal panel-modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <h4>下载简书移动应用</h4>
+      <div class="panel-body"><img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/download-app-qrcode-85008f146773a25ce86bcc4d7858af68.png" alt="Download app qrcode"></div>
+    </div>
+  </div>
+
+
+  <div class="imagebubble-container imagebubble-mode-off" id="show-note-container">
+    
+<div class="post-bg" id="flag">
+  <div class="wrap-btn">
+    <!-- Notebook and collections button upper left -->
+      <div class="article-related pull-left">
+          <a class="collection-menu-btn" data-toggle="modal" data-target="#collection-menu" href="javascript:void(null);">
+            <i class="fa fa-th"></i>
+</a>          <a class="notebooks-menu-btn" data-toggle="modal" data-target="#notebooks-menu" href="javascript:void(null);"><i class="fa fa-list-ul"></i></a>
+        <div class="related-avatar-group activities"></div>
+      </div>
+    <!-- ******* -->
+
+      <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+    <i class="fa fa-user"></i> 注册
+</a>  <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+    <i class="fa fa-sign-in"></i> 登录
+</a>
+
+    <!-- Buttons upper right -->
+    <!-- ******* -->
+  </div>
+
+  <div class="container">
+    <!-- Article activities for width under 768px -->
+    <div class="related-avatar-group activities"></div>
+      <div class="article">
+        <div class="preview">
+          <div class="author-info">
+              <div class="btn btn-small btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-plus"></i>  <span>添加关注</span></a>
+  </div>
+
+            <a class="avatar" href="http://www.jianshu.com/users/a774b58c9b89">
+              <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/b5b897609b66.jpg" alt="100">
+</a>            <span class="label">
+                作者
+            </span>
+            <a class="author-name blue-link" href="http://www.jianshu.com/users/a774b58c9b89">
+              <span>圣迪</span>
+</a>              <span data-toggle="tooltip" data-original-title="最后编辑于 2016.01.21 23:33">2015.10.31 21:23*</span>
+            <div>
+              <span>写了16932字</span>，<span>被654人关注</span>，<span>获得了353个喜欢</span>
+            </div>
+          </div>
+          <h1 class="title">正确使用AFNetworking的SSL保证网络安全</h1>
+          <div class="meta-top">
+            <span class="wordage">字数1664</span>
+            <span class="views-count">阅读3268</span>
+            <span class="comments-count">评论9</span>
+            <span class="likes-count">喜欢41</span>
+          </div>
+
+          <!-- Collection/Bookmark/Share for width under 768px -->
+          <div class="article-share"><a class="bookmark" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"> <i class="fa fa-bookmark-o"></i><span>收藏文章</span></a><span> <a href="javascript:void(null)" data-toggle="dropdown"><i class="fa fa-share-square-o"></i> 分享</a> <ul class="dropdown-menu arrow-top"> <li> <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://cwb.assets.jianshu.io/notes/images/2337318/weibo/image_be2e19a040f0.jpg',%20'%E6%8E%A8%E8%8D%90%20@%E5%9C%A3_%E8%BF%AA%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@%E7%AE%80%E4%B9%A6%20%EF%BC%89','http://www.jianshu.com/p/4102b817ff2f','%E9%A1%B5%E9%9D%A2%E7%BC%96%E7%A0%81gb2312|utf-8%E9%BB%98%E8%AE%A4gb2312'));"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/weibo.png"> </a> </li> <li> <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e('http://www.jianshu.com/p/4102b817ff2f')+'&amp;title='+e('%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8')+'&amp;sel='+e(s)+'&amp;v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&amp;r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/douban.png"> </a> </li> <li> <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url='+e('http://www.jianshu.com/p/4102b817ff2f')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E5%9C%A3%E8%BF%AA%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshuio%20%EF%BC%89'),x=function(){if(!window.open(r,'tweibo','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/tweibo.png"> </a> </li> <li> <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+e('http://www.jianshu.com/p/4102b817ff2f')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E5%9C%A3%E8%BF%AA%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E3%80%8B'),x=function(){if(!window.open(r,'qzone','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/qzone.png"> </a> </li> <li> <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://twitter.com/share?url='+e('http://www.jianshu.com/p/4102b817ff2f')+'&amp;text='+e('%E6%8E%A8%E8%8D%90%20%E5%9C%A3%E8%BF%AA%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshucom%20%EF%BC%89')+'&amp;related='+e('jianshucom'),x=function(){if(!window.open(r,'twitter','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/twitter.png"> </a> </li> <li> <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/4102b817ff2f',x=function(){if(!window.open(r,'facebook','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/facebook.png"> </a> </li> <li> <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://plus.google.com/share?url='+e('http://www.jianshu.com/p/4102b817ff2f'),x=function(){if(!window.open(r,'google_plus','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/google_plus.png"> </a> </li> <li> <a href=""> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/renren.png"> </a> </li> </ul></span></div>
+          <!-- -->
+
+          <div class="show-content"><p>  AFNetworking, iOS开发中，以其优雅的结构设计和简便的调用方式，使其成为了最流行的网络开源库之一（另一个应该算是ASI了，但经久失修不维护的原因，已经不是首选）。<br>  我们在大多数情况下，都能够正确使用AFNetworking的功能，但在网络安全日趋严峻的今天，加入SSL使用HTTPS已经成为了很多大中型网站的首选；这点在国外尤其流行，例如Google已经全站HTTPS。<br>  本文便主要描述了如何正确使用AFNetworking中的SSL功能。详细步骤如下：<br>1、获取到站点的证书：<br>  我们可以使用以下openssl命令来获取到服务器的公开二进制证书（以google为例）：</p>
+<pre class="hljs objectivec"><code class="objectivec"><span class="hljs-string">"openssl s_client -connect www.google.com:443 &lt;/dev/null 2&gt;/dev/null | openssl x509 -outform DER &gt; https.cer"</span></code></pre>
+<p>  冒号中的为命令主要部分。该条命令将会在当前路径下，形成google.com站点的公开二进制证书，命名为https.cer。您可以将www.google.com 替换成您自己的站点以此来获取您自己站点的https.cer。</p>
+<p>2、将证书放进我们的XCode项目工程中：<br></p><div widget="ImageBubble" class="image-package imagebubble">
+<img class="imagebubble-image" src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/296122-ae2dd8130f0ebbca.png" data-original-src="http://upload-images.jianshu.io/upload_images/296122-ae2dd8130f0ebbca.png?imageMogr2/auto-orient/strip%7CimageView2/2"><br><div class="image-caption">Paste_Image.png</div>
+</div><p><br>  如上图所示，将我们的https.cer拖到我们的工程Supporting Files中，把 Copy Items if needed 的勾选上。然后把您的Add to targets 选上，点击确定。就完成了证书的导入工作。</p>
+<p>3、在我们的代码中使用我们的cer<br>  AFNetworking中的AFSecurityPolicy是主要的类，我们可以这样来使用它(AFNetworking 2.6.0之前)：</p>
+<pre class="hljs objectivec"><code class="objectivec">    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+
+    <span class="hljs-built_in">NSString</span> *cerPath                = [[<span class="hljs-built_in">NSBundle</span> mainBundle] pathForResource:<span class="hljs-string">@"https"</span> ofType:<span class="hljs-string">@"cer"</span>];
+    <span class="hljs-built_in">NSData</span> *certData                 = [<span class="hljs-built_in">NSData</span> dataWithContentsOfFile:cerPath];
+    AFSecurityPolicy *securityPolicy = [[AFSecurityPolicy alloc] init];
+    [securityPolicy setAllowInvalidCertificates:<span class="hljs-literal">NO</span>];
+    [securityPolicy setPinnedCertificates:@[certData]];
+    [securityPolicy setSSLPinningMode:AFSSLPinningModeCertificate];
+    [securityPolicy setValidatesDomainName:<span class="hljs-literal">YES</span>];
+    [securityPolicy setValidatesCertificateChain:<span class="hljs-literal">NO</span>];
+
+    manager<span class="hljs-variable">.securityPolicy</span> = securityPolicy;</code></pre>
+<p>解析：<br>1）新建一个manager, 地球人都知道<br>2）在mainBundle中寻找我们刚才拖进项目中的https.cer, 并且将相关的数据读取出来<br>3）新建一个AFSecurityPolicy，并进行相应的配置<br>4）将这个AFSecurityPolicy 实例赋值给manager</p>
+<p>也可以这样来使用：</p>
+<pre class="hljs bash"><code class="bash">AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager]; 
+
+AFSecurityPolicy *securityPolicy = [[AFSecurityPolicy alloc] init]; 
+[securityPolicy <span class="hljs-built_in">set</span>AllowInvalidCertificates:NO]; 
+[securityPolicy <span class="hljs-built_in">set</span>SSLPinningMode:AFSSLPinningModeCertificate]; 
+[securityPolicy <span class="hljs-built_in">set</span>ValidatesDomainName:YES];
+[securityPolicy <span class="hljs-built_in">set</span>ValidatesCertificateChain:NO]; 
+
+manager.securityPolicy = securityPolicy;</code></pre>
+<p>  这种方式比前面那种方式要更加简便一些，主要原因在于AFNetworking会自动去搜索<code>mainBundle</code>下的所有<code>cer</code>结尾的文件并放进内存中；再一一对比。因此在代码中可以省略不写。</p>
+<p>  这样一个网络请求的https的安全策略就配置好了，接下来再说明一下几个AFSecurityPolicy相关的配置<br>1&gt; SSLPinningMode<br>  SSLPinningMode 定义了https连接时，如何去校验服务器端给予的证书。</p>
+<pre class="hljs objectivec"><code class="objectivec"><span class="hljs-keyword">typedef</span> <span class="hljs-built_in">NS_ENUM</span>(<span class="hljs-built_in">NSUInteger</span>, AFSSLPinningMode) {
+    AFSSLPinningModeNone,
+    AFSSLPinningModePublicKey,
+    AFSSLPinningModeCertificate,
+};</code></pre>
+<p>AFSSLPinningModeNone: 代表客户端无条件地信任服务器端返回的证书。<br>AFSSLPinningModePublicKey: 代表客户端会将服务器端返回的证书与本地保存的证书中，PublicKey的部分进行校验；如果正确，才继续进行。<br>AFSSLPinningModeCertificate: 代表客户端会将服务器端返回的证书和本地保存的证书中的所有内容，包括PublicKey和证书部分，全部进行校验；如果正确，才继续进行。</p>
+<p>2&gt; allowInvalidCertificates<br>  allowInvalidCertificates 定义了客户端是否信任非法证书。一般来说，每个版本的iOS设备中，都会包含一些既有的CA根证书。如果接收到的证书是iOS信任的CA根证书签名的，那么则为合法证书；否则则为“非法”证书。<br>  allowInvalidCertificates 就是用来确认是否信任这样的证书的。当然，我们也可以给iOS加入新的信任的CA证书。iOS已有的CA根证书，可以在这里了解到：<a href="https://support.apple.com/en-us/HT204132" target="_blank">https://support.apple.com/en-us/HT204132</a></p>
+<p>3&gt; pinnedCertificates<br>  pinnedCertificates 
+就是用来校验服务器返回证书的证书。通常都保存在mainBundle 
+下。通常默认情况下，AFNetworking会自动寻找在mainBundle的根目录下所有的.cer文件并保存在
+pinnedCertificates数组里，以校验服务器返回的证书。</p>
+<p>4&gt; validatesDomainName<br>  validatesDomainName 
+是指是否校验在证书中的domain这一个字段。每个证书都会包含一个DomainName, 
+它可以是一个IP地址，一个域名或者一端带有通配符的域名。如*.google.com, www.google.com 
+都可以成为这个证书的DomainName。设置validatesDomainName=YES将严格地保证其安全性。</p>
+<p> 5&gt; validatesCertificateChain<br>  validatesCertificateChain 指的是是否校验其证书链。<br>  通常来讲，一个CA证书颁发机构有很多个子机构，用来签发不同用途的子证书，然后这些子证书又再用来签发相应的证书。只有证书链上的证书都正确，CertificateChain才算验证完成。以Google为例：</p>
+<div widget="ImageBubble" class="image-package imagebubble">
+<img class="imagebubble-image" src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/296122-6f830e762e6569e0.png" data-original-src="http://upload-images.jianshu.io/upload_images/296122-6f830e762e6569e0.png?imageMogr2/auto-orient/strip%7CimageView2/2"><br><div class="image-caption">Paste_Image.png</div>
+</div>
+<p>  从上图可以看到，Google.com的证书的根CA证书是GeoTrust Global CA; 
+而CA并没有直接给google.com签证书，而是先签名了Google Internet Authority G2, 
+然后G2再签名了google.com。这时候就需要设备中保存有Google Internet Authority G2证书才能通过校验。<br> 
+ 一般来讲，我推荐将validatesCertificateChain设置为NO，因为并不是太有必要做CertificateChain的校验。并
+且，在AFNetworking 2.6.0中，也正式将validatesCertificateChain拿掉了（<a href="https://github.com/AFNetworking/AFNetworking/blob/master/CHANGELOG.md%EF%BC%89" target="_blank">https://github.com/AFNetworking/AFNetworking/blob/master/CHANGELOG.md）</a>,  其原因也同样为：There was no documented security advantage to pinning against an entire certificate chain。<br>  因此，在2.6.0之后，可以不管这个字段。而在此之前，从效率上来说，设定为NO会是个比较明智的选择。</p>
+<p>  做好以上工作后，您应该就可以正常访问您自己的https服务器了。如果还是有问题请检查：<br>（1）、HTTPS服务器的正确配置。一般来说，可以使用浏览器打开相同页面来查看浏览器上的小锁是否正常。<br>（2）、是否https.cer正确打包进了项目中。查看第2步中的内容。<br>（3）、其他。跟帖呗。有问题大家一起交流，共同进步：）</p>
+<p>  这几个东西别看就这么一点，理解了好久才理清楚其中代表的含义。接下来打算再写几篇关于SSL的详细博文以纪念这些深度研究的时间。</p>
+<p>参考文档：<br>1、<a href="https://github.com/AFNetworking/AFNetworking/blob/master/CHANGELOG.md" target="_blank">https://github.com/AFNetworking/AFNetworking/blob/master/CHANGELOG.md</a><br>2、<a href="http://nelson.logdown.com/posts/2015/04/29/how-to-properly-setup-afnetworking-security-connection/" target="_blank">http://nelson.logdown.com/posts/2015/04/29/how-to-properly-setup-afnetworking-security-connection/</a></p>
+</div>
+        </div>
+      </div>
+
+      <div class="visitor_edit">
+        <!-- further readings -->
+        <div id="further-readings" data-user-slug="" data-user-nickname="">
+          <div id="further-reading-line" class="hide further-reading-line"></div>
+          <ul id="further-readings-list" class="reading-list unstyled"></ul>
+          <div id="further-reading-new" class="reading-edit">
+              <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-plus-circle"></i> 推荐拓展阅读
+</a>            <div id="further-reading-form"></div>
+          </div>
+        </div>
+        <div class="pull-right">
+          <!-- copyright -->
+          <div data-original-title="转载请联系作者获得授权，并标注“简书作者”。" class="author-copyright pull-right" data-toggle="tooltip" data-html="true" title="">
+            <a><i class="fa fa-copyright"></i> 著作权归作者所有</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reward / Support Author -->
+        <div class="support-author">
+          <p>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</p>
+            <a class="btn btn-pay" data-toggle="modal" href="#pay-modal">¥ 打赏支持</a>
+          <div class="avatar-list"><a title="" data-original-title="" href="http://www.jianshu.com/users/a5f637b88ae0" class="avatar" data-nickname="夏趣意转秋来" data-created-at="2016-01-23T15:03:35+08:00"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/24cf626b0994.jpg"></a></div>
+        </div>
+
+      <!-- article meta bottom -->
+      <div class="meta-bottom clearfix">
+        <!--  Like Button -->
+        <div class="like ">
+            <div class="like-button">
+              <a id="like-note" class="like-content" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-heart-o"></i>  喜欢
+</a></div>          <span data-original-title="查看所有喜欢的用户" id="likes-count" data-toggle="tooltip" data-placement="right" title="">41</span>        </div>
+        <!--  share group -->
+        <div class="share-group pull-right">
+          <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://cwb.assets.jianshu.io/notes/images/2337318/weibo/image_be2e19a040f0.jpg',%20'%E6%8E%A8%E8%8D%90%20@%E5%9C%A3_%E8%BF%AA%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@%E7%AE%80%E4%B9%A6%20%EF%BC%89','http://www.jianshu.com/p/4102b817ff2f','%E9%A1%B5%E9%9D%A2%E7%BC%96%E7%A0%81gb2312|utf-8%E9%BB%98%E8%AE%A4gb2312'));" data-name="weibo">
+            <i class="fa fa-weibo"></i><span>分享到微博</span>
+          </a>
+          <a data-toggle="modal" href="#share-weixin-modal" data-name="weixin">
+            <i class="fa fa-weixin"></i><span>分享到微信</span>
+          </a>
+          <div class="more">
+            <a href="javascript:void(0)" data-toggle="dropdown">更多分享<i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu arrow-top">
+                <li><a href="http://cwb.assets.jianshu.io/notes/images/2337318/weibo/image_be2e19a040f0.jpg" target="_blank" data-name="changweibo"><i class="fa fa-arrow-circle-o-down"></i> 下载长微博图片</a></li>
+                <li>
+                  <a data-name="tweibo" href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url='+e('http://www.jianshu.com/p/4102b817ff2f')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E5%9C%A3%E8%BF%AA%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshuio%20%EF%BC%89'),x=function(){if(!window.open(r,'tweibo','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/tweibo.png" alt="Tweibo"> 分享到腾讯微博
+</a>                </li>
+                <li>
+                  <a data-name="qzone" href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+e('http://www.jianshu.com/p/4102b817ff2f')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E5%9C%A3%E8%BF%AA%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E3%80%8B'),x=function(){if(!window.open(r,'qzone','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/qzone.png" alt="Qzone"> 分享到QQ空间
+</a>                </li>
+                <li>
+                  <a data-name="twitter" href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://twitter.com/share?url='+e('http://www.jianshu.com/p/4102b817ff2f')+'&amp;text='+e('%E6%8E%A8%E8%8D%90%20%E5%9C%A3%E8%BF%AA%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshucom%20%EF%BC%89')+'&amp;related='+e('jianshucom'),x=function(){if(!window.open(r,'twitter','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/twitter.png" alt="Twitter"> 分享到Twitter
+</a>                </li>
+                <li>
+                  <a data-name="facebook" href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/4102b817ff2f',x=function(){if(!window.open(r,'facebook','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/facebook.png" alt="Facebook"> 分享到Facebook
+</a>                </li>
+                <li>
+                  <a data-name="google_plus" href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://plus.google.com/share?url='+e('http://www.jianshu.com/p/4102b817ff2f'),x=function(){if(!window.open(r,'google_plus','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/google_plus.png" alt="Google plus"> 分享到Google+
+</a>                </li>
+                <li>
+                  <a data-name="douban" href="javascript:void(function(){var%20d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e('http://www.jianshu.com/p/4102b817ff2f')+'&amp;title='+e('%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8')+'&amp;sel='+e(s)+'&amp;v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&amp;r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()">
+                    <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/douban.png" alt="Douban"> 分享到豆瓣
+</a>                </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modals -->
+      <div id="share-weixin-modal" class="modal hide fade share-weixin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div title="http://www.jianshu.com/p/4102b817ff2f?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weixin" class="modal-body">
+    <h5>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</h5>
+  <canvas style="display: none;" height="170" width="170"></canvas><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKoAAACqCAYAAAA9dtSCAAAHdElEQVR4nO2awXJrIQxD8/8/nbd5qzQFZMlA0uMZVmBbss/NotPH4/F47jijUN6u5Du1Vus6ft3anbpGGg97OD8gQAVUQDUCUC8FNRkOqJ0fQRIupZczH9WTE8l5pHQAKqAOa6s6kgGogLpcW9WRDEAF1OXaqo5kSKA6S07ClNQ1quX0SX5sLgBd85j1UXQUcgEVUNfmMeuj6ABUQAVUQAVUReefAzVsuAyB0yvZx4mkB0AFVEAFVEAFVMFEtQ+gegGoogknRrU7wdx1XB1dnpQ9qL0WcgF1tQ+gru9B7bWQC6irfQB1fQ9qr4Xc/TC5JpRaqi5FoxI7P5guHZ21ZrUBtVgXUAEVUEUdgBpstCAEUIs6/hyonWckRB3A6P5UbtLTp86j+QBqIjfp6VPnAaiXLqbL06fOA1AvXUyXp0+dR+v50f2CcD4C9YNxdHXlupqrPxjufDrjSmWACqivcaUyQAXU17hSGaAC6ms8FJFJQJThVaFd8eAs9ROOskN1L+q9E4AKqOW9qPdOACqglvei3jshVdsFjNrX0azkJj10aXb6urVa+XCEAiqgKroB1dCs5CY9dGl2+rq1ABVQATUpVBFdrVt5vxrKoFVPydyTHi3YjA8bUAXNgAqogCrknvQIqIC6nHvS45Wg7jLhGlZyU29VzU5u52yV3KNQW8mA2lILUAE19lbV7OQCKqCW36qanVxAfTwfXYtJLj2pa3bvDNfRlYSg623SU6E2oAIqoALqYi6gTmsDKqB+AKjVRklTM8NOLSU3CUz3/FY9qf5Tb934MaPhJaACavGtG4A66QWombduWKCOis0aTYUcOo6mrnmos+oKdYeqbmm2SuGRkJ0mABVQARVQS5oBFVAB9fnyd9QuAGaiO+PWJas6U0C4OlN9VR2AuqmvqxNQAXVLX1cnoALqlr6uTkBtgm0njKsaZzpcT6nFJWe38wekUzegDnLde0DN6QbUQa57D6g53YA6yHXvATWn+5EqXGgc+UBe3yt9ZrmOx5kHxaNay/FUfbvhIwDU33IdjzMPike1luMJUAEVUJ3ZdjXuBMSp5Xwwjg4HLldndT5uqD6Gp2oCUAFV7QWoIQ+ACqiACqjuycGn5CYHcKLPu/tbZpn62Dpz1VqAWuzz7v6WWQIqoA7vb5kloALq8P6WWX49qGqx1NnZ94Q/VdfO2d664zf3gNrtD1ABFVAB9V4TgAqoanJkIE7fW6FXPXXlOpGE3u0NqIDa1hdQAXVLAOokF1BzuU78CVCTuUmYUm/T86i+VaNzlqP7gA5ABVRABdTFeVTfqvEVoCZNOANL1lJ0u4tRNCb9jPKd2LljQAXUcgCqaMKpBaj1AFTRhFMLUOtxLahJIZ2QO5pG77v8uTP4a31/0QKogHpX31+0ACqg3tX3Fy2ACqh39f1FS22pr/ed8M3CGUjVb1KjC4yTu8tjoBagAiqgbglArecC6sYA1Hrux4DqJK+KVIXurFWFega2GipQygfmeOyCetb3x32qGKACqhOACqjfAWpyQFVhM9G7dCRB3qkjmVut2w0uoAIqoK4KWRAJqIAKqID6AaAqj6fFiiacYXZqdhblQN45j+QsHQ9yLUcooAJq1YNcyxEKqIBa9SDXcoQCKqBWPci1nOTVuyUhxqKcgVQ1JaF2e3eFu9PRnTyflHBABVRAFXKdANSxJuc9oAKq5VmZh/M+MJ/14Skik8PdCUxKRzKcXjvn4faeHEDt0JEMQAXUNh3JAFRAbdORDEB9ATU5EEd00rATjk6ntprrvB3dd+60oBNQVz0B6roHQAVUQE0uxgFm53AVHZ0fW/XtTLfy1p1d8gN68x5QV3UAKqBKuYC6Pj/lLaACKqAab5/Pp/b/qA58neEA1NX3ZKTm4X6co1qyB0foLQGo67oA9WAA6rouQD0YgLqu6ytBVYq5wlb7pKFIenAW4fRVdDjgqeCmPADqE1ABFVCX3wLq2AOgPgH1I0HtFNIFWrJ2ctjJ+XR+MIqOzlrT+9XCgAqonbUANVQHUA+D2gWbMmzXhNI36SF5TvW9VcebA6hVD98IyC063hxArXr4RkBu0fHmAGrVwzcCcouOH2e49cZwANqlSb1Xaiu1OuehgOrUVnUAqqBJvVdqA+pYB6AKmtR7pTagjnUAqqBJvVdqA+pYx5uzDoxzqsNSB9IJkwKy6tFZalJHtc/KvbMnQF2sA6iACqiT3GQtQAVUQJ3cx0BNRnKYndBXQXQ/gtH9LZ6SPyCO5v8HUAEVUAF1MRdQAVV6D6j1voonRfMU1IXkyHDVWp3AVP2rR+nlhDvbG/wDKqACKqAC6leA6ixm9D45PCeSgKi1q29nupxcd9aACqjLupxcQAVUS4eiy8kFVEC1dCi6nNyPBVXp4+g6Be7O2qP7pO5Tuf8PoALqmu5TuYAKqJLuU7mACqiS7lO5U1CdcBbTCa7Td5eOZOz8QDoDUIt1ABVQATUYgDovDKiAGouHupzqmZl2clfvVu6dcPxW387ez96qOqt7C+gC1FQAKqAumwJUQAXUSQBq317+AXljtMcqXX+NAAAAAElFTkSuQmCC" style="display: block;"></div>
+</div>
+
+      
+      <div id="notebooks-menu" class="panel notebooks-menu arrow-top modal hide fade"><img class="loader-tiny" src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/tiny.gif" alt="Tiny"></div>
+      <div id="collection-menu" class="panel collection-menu arrow-top modal hide fade"><img class="loader-tiny" src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/tiny.gif" alt="Tiny"></div>
+      
+      <div id="likes-modal" class="modal modal_new support_list-modal fullscreen hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>喜欢的用户</h3>
+      </div>
+      <div class="modal-body">
+        <ul class="unstyled users">
+        <li data-user-id="2049971"> <a class="avatar" href="http://www.jianshu.com/users/5a1bc6cf5fdf"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/3a254cba753b.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/5a1bc6cf5fdf">fruitymoon</a> <span class="time">2016.05.12 19:34</span></li><li data-user-id="1255677"> <a class="avatar" href="http://www.jianshu.com/users/ea600a96e7a9"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/cf3e919c78f3.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/ea600a96e7a9">IreliaHua</a> <span class="time">2016.05.11 16:53</span></li><li data-user-id="397104"> <a class="avatar" href="http://www.jianshu.com/users/1b3959eb4da9"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/e8695b0bca2f.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/1b3959eb4da9">梯田里的昏鸦</a> <span class="time">2016.05.11 15:10</span></li><li data-user-id="1452166"> <a class="avatar" href="http://www.jianshu.com/users/a0933f57748c"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/392dd1a42815.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/a0933f57748c">我会发光哦丶</a> <span class="time">2016.04.20 12:58</span></li><li data-user-id="1237662"> <a class="avatar" href="http://www.jianshu.com/users/977d94d120e0"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/ebd6deb37c30.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/977d94d120e0">上发条的树</a> <span class="time">2016.04.16 10:24</span></li><li data-user-id="1678417"> <a class="avatar" href="http://www.jianshu.com/users/6e7261f07368"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/98bf6ad44183.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/6e7261f07368">眸转丶千年</a> <span class="time">2016.03.08 18:17</span></li><li data-user-id="1696998"> <a class="avatar" href="http://www.jianshu.com/users/48ab42577a37"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/d5237280ba36.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/48ab42577a37">Covai</a> <span class="time">2016.03.05 01:42</span></li><li data-user-id="599197"> <a class="avatar" href="http://www.jianshu.com/users/4ca894f5b2b7"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/98254ac1d996.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/4ca894f5b2b7">callen</a> <span class="time">2016.03.03 12:04</span></li><li data-user-id="266345"> <a class="avatar" href="http://www.jianshu.com/users/8661645b8f40"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/86e83f04ce3f.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/8661645b8f40">Mitchell</a> <span class="time">2016.02.26 21:10</span></li><li data-user-id="958693"> <a class="avatar" href="http://www.jianshu.com/users/b8c20f14625e"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/273b4db81f9e.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/b8c20f14625e">liusy</a> <span class="time">2016.02.19 08:01</span></li><li data-user-id="1229960"> <a class="avatar" href="http://www.jianshu.com/users/baaa48a4b911"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/a129f9870ae0.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/baaa48a4b911">远方的枫叶</a> <span class="time">2016.02.11 14:55</span></li><li data-user-id="640923"> <a class="avatar" href="http://www.jianshu.com/users/bc7b6214bb6b"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/0279d6df8398.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/bc7b6214bb6b">MentalTulip</a> <span class="time">2016.02.11 08:38</span></li><li data-user-id="1357918"> <a class="avatar" href="http://www.jianshu.com/users/2f2809bd4702"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/4bd297c8411b.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/2f2809bd4702">城城城续源</a> <span class="time">2016.02.08 21:01</span></li><li data-user-id="1098978"> <a class="avatar" href="http://www.jianshu.com/users/5b980ab63206"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/470494d27dc3.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/5b980ab63206">垚子</a> <span class="time">2016.02.05 15:58</span></li><li data-user-id="563460"> <a class="avatar" href="http://www.jianshu.com/users/6dbd22fed661"> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/8887bf0bfb47.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/6dbd22fed661">utopiaforever</a> <span class="time">2016.02.05 15:29</span></li><a class="more hidden" data-max-id="12718287" href="javascript:void(null);"><i class="fa fa-ellipsis-h"></i></a></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Comments -->
+    <div id="comments" class="comment-list clearfix">
+        <div class="comment-head clearfix">
+          9条评论
+          <span class="order">
+            （
+            <a data-order="asc" class="active" href="javascript:void(0)">按时间正序</a>·
+            <a data-order="desc" href="javascript:void(0)">按时间倒序</a>·
+            <a data-order="likes_count" href="javascript:void(0)">按喜欢排序</a>
+            ）
+          </span>
+            <a class="goto-comment pull-right" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+              <i class="fa fa-pencil"></i>添加新评论
+</a>        </div>
+        <div id="comment-list"><script type="application/json" data-name="comments-info">
+  {"comments":[{"id":843363,"children_count":0,"likes_count":0},{"id":1301633,"children_count":0,"likes_count":0},{"id":1321623,"children_count":0,"likes_count":0},{"id":1363742,"children_count":1,"likes_count":0},{"id":1397910,"children_count":0,"likes_count":0},{"id":1641541,"children_count":1,"likes_count":0},{"id":2105079,"children_count":0,"likes_count":0}]}
+</script>
+
+
+<div class="note-comment clearfix" id="comment-843363">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/aefb3f41f544">
+          <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/13-8072fce67829ce128ba5df823205516c.jpg" alt="13">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/aefb3f41f544">Charse</a>
+        </p>
+        <span class="reply-time">
+          <small>2 楼 · </small>
+          <a href="http://www.jianshu.com/p/4102b817ff2f/comments/843363#comment-843363">2015.11.06 00:10</a></span>
+      </div>
+      <p> <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/smile.png" alt=":smile:" title=":smile:" class="emoji" height="20" width="20"> 前排膜拜大神</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="843363" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="843363" data-nickname="Charse" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-1301633">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/dccdd51e1837">
+          <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/bca81fd1f5d8.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/dccdd51e1837">水瓶座_iOSer</a>
+        </p>
+        <span class="reply-time">
+          <small>4 楼 · </small>
+          <a href="http://www.jianshu.com/p/4102b817ff2f/comments/1301633#comment-1301633">2016.01.23 14:53</a></span>
+      </div>
+      <p>大神，么么哒</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="1301633" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="1301633" data-nickname="水瓶座_iOSer" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-1321623">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/8b15f13f02e3">
+          <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/a78f92046dd8.png" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/8b15f13f02e3">小大大</a>
+        </p>
+        <span class="reply-time">
+          <small>5 楼 · </small>
+          <a href="http://www.jianshu.com/p/4102b817ff2f/comments/1321623#comment-1321623">2016.01.26 11:27</a></span>
+      </div>
+      <p>肾神</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="1321623" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="1321623" data-nickname="小大大" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-1363742">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/e2e0d53e4727">
+          <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/f45a140d1edf.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/e2e0d53e4727">StoneLeon</a>
+        </p>
+        <span class="reply-time">
+          <small>6 楼 · </small>
+          <a href="http://www.jianshu.com/p/4102b817ff2f/comments/1363742#comment-1363742">2016.01.31 21:17</a></span>
+      </div>
+      <p>对现在的开发还是很有用的。 <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/1.png" alt=":+1:" title=":+1:" class="emoji" height="20" width="20"> </p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="1363742" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="1363742" data-nickname="StoneLeon" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list ">
+        <div class="child-comment" id="comment-1363869" data-id="1363869">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/a774b58c9b89">圣迪</a>：
+      <a href="http://www.jianshu.com/users/e2e0d53e4727" class="maleskine-author" target="_blank" data-user-slug="e2e0d53e4727">@StoneLeon</a> 很高兴能帮到你<img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/smile.png" alt=":smile:" title=":smile:" class="emoji" height="20" width="20">
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="1363742" data-nickname="圣迪" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/4102b817ff2f/comments/1363869#comment-1363869">2016.01.31 21:32</a></span>
+      
+    </div>
+  </div>
+
+      <div data-state="remaining-child-comments"></div>
+        <div class="comment-toolbar clearfix">
+          <span class="pull-right">
+            <a data-id="1363742" class="reply" href="javascript:void(null)"><i class="fa fa-pencil"></i> 添加新回复</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-1397910">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/5b980ab63206">
+          <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/470494d27dc3.png" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/5b980ab63206">垚子</a>
+        </p>
+        <span class="reply-time">
+          <small>7 楼 · </small>
+          <a href="http://www.jianshu.com/p/4102b817ff2f/comments/1397910#comment-1397910">2016.02.05 15:58</a></span>
+      </div>
+      <p>m</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="1397910" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="1397910" data-nickname="垚子" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-1641541">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/f7c081cbebac">
+          <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/39de91f5216e.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/f7c081cbebac">Daniel张丹</a>
+        </p>
+        <span class="reply-time">
+          <small>8 楼 · </small>
+          <a href="http://www.jianshu.com/p/4102b817ff2f/comments/1641541#comment-1641541">2016.03.07 11:06</a></span>
+      </div>
+      <p>如果是通过IP来访问也可以这么处理不？</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="1641541" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="1641541" data-nickname="Daniel张丹" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list ">
+        <div class="child-comment" id="comment-1641979" data-id="1641979">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/a774b58c9b89">圣迪</a>：
+      <a href="http://www.jianshu.com/users/f7c081cbebac" class="maleskine-author" target="_blank" data-user-slug="f7c081cbebac">@Daniel张丹</a> 这取决于你的ssl证书是ip绑定还是域名绑定了
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="1641541" data-nickname="圣迪" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/4102b817ff2f/comments/1641979#comment-1641979">2016.03.07 11:52</a></span>
+      
+    </div>
+  </div>
+
+      <div data-state="remaining-child-comments"></div>
+        <div class="comment-toolbar clearfix">
+          <span class="pull-right">
+            <a data-id="1641541" class="reply" href="javascript:void(null)"><i class="fa fa-pencil"></i> 添加新回复</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2105079">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/c8961b14aea7">
+          <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/2-65a6e6d032559f3c53475eb61d7ea573.jpg" alt="2">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/c8961b14aea7">zyg</a>
+        </p>
+        <span class="reply-time">
+          <small>9 楼 · </small>
+          <a href="http://www.jianshu.com/p/4102b817ff2f/comments/2105079#comment-2105079">2016.04.20 10:07</a></span>
+      </div>
+      <p>Hello 请问 文中说 会再写几篇 SSL 请问开始了吗？ </p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2105079" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2105079" data-nickname="zyg" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+          <p class="signout-comment">
+    <a class="btn btn-info" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      登录后发表评论
+</a>  </p>
+
+    </div>
+    <!-- -->
+
+  </div>
+
+  <script type="application/json" data-name="note">
+    {"id":2337318,"abbr":"  AFNetworking,iOS开发中，以其优雅的结构设计和简便的调用方式，使其成为了最流行的网络开源库之一（另一个应该算是ASI了，但经久失修不维护的原因，已经不是首选）。  我们在大多数情况下，都能够正确使用AFNetworking的功能，但在网络安全日趋严峻的今天，加入SSL使用HTTPS已经成为了很多大中型网站的首选；这点在国外尤其流行，例如Google已经全站HTTPS。  本文便主要描述了如何正确使用AFNetworking中的SSL功能。详细步骤如下：1、获取到站点的证书：  我们可以使用以下openssl命令来获取到服务器的公开二进制证书（以google为例...","slug":"4102b817ff2f","url":"http://www.jianshu.com/p/4102b817ff2f","image_url":"http://cwb.assets.jianshu.io/notes/images/2337318/weibo/image_be2e19a040f0.jpg","wordage":1664,"has_further_readings":false,"views_count":3268,"likes_count":41,"comments_count":9,"rewards_total_count":1}
+  </script>
+
+  <script type="application/json" data-name="uuid">
+    {"uuid":"6d166360-fe09-0133-3440-52540095852f"}
+  </script>
+
+  <script type="application/json" data-name="author">
+    {"id":296122,"nickname":"圣迪","slug":"a774b58c9b89","public_notes_count":9,"followers_count":654,"total_likes_count":353,"is_current_user":false,"is_signed_author":false}
+  </script>
+
+
+    <div class="include-collection">
+      <div class="content">
+        <h5>被以下专题收入，发现更多相似内容：</h5>
+        <ul id="all-collections" class="unstyled collections-list">
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/bDHhpK"><img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/rdn_4ddb18fddd2e9_1.jpg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/bDHhpK">首页投稿</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>99.5K</span>
+  </div>
+
+                <p class="description">玩转简书的第一步，从这个专题开始。
+
+想上首页热门榜么？好内容想被更多人看到么？来投稿吧！如果被拒也不要灰心哦～入选文章会进一个队...</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/bDHhpK">55987篇文章</a> · 99560人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/NEt52a"><img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/computer_guy.jpg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/NEt52a">程序员</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>89.2K</span>
+  </div>
+
+                <p class="description">简书程序员大本营
+
+投稿须知：
+1.本专题仅收录与程序有关的文章。
+2.请在代码框里写代码，尽量保证可看性。
+
+关注简书官...</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/NEt52a">13033篇文章</a> · 89245人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/3233d1a249ca"><img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/162902612251cbd95971b82.png" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/3233d1a249ca">iOS Developer</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>18.6K</span>
+  </div>
+
+                <p class="description">分享 iOS 开发的知识，解决大家遇到的问题，讨论iOS开发的前沿，欢迎大家投稿~</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/3233d1a249ca">5925篇文章</a> · 18698人关注
+                </p>
+              </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+  <!-- Modal -->
+    <div class="modal pay-modal text-center hide fade" id="pay-modal">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <form id="new_reward" class="new_reward" target="_blank" action="/notes/2337318/rewards" accept-charset="UTF-8" method="post"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="jQXbdLuthNpqOtXrouM7VD/CbuSjS2KQSyvav9FeuDS83n5aT/pkyFGdjWNRow5MEFoR5xLPyr1Qt7socXik9A==" type="hidden">
+    <div class="modal-body">
+      <a href="http://www.jianshu.com/users/a774b58c9b89">
+        <div class="avatar"><img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/b5b897609b66.jpg" alt="100"></div>
+</a>      <p><i class="fa fa-quote-left pull-left"></i>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！<i class="fa fa-quote-right pull-right"></i></p>
+      <div class="main-inputs text-left">
+        <div class="control-group">
+          <label for="reward_amount">打赏金额</label><i class="fa fa-yen"></i>
+          <input value="5.00" name="reward[amount_in_yuan]" id="reward_amount_in_yuan" type="text">
+        </div>
+        <div class="control-group message">
+          <textarea placeholder="给Ta留言" name="reward[message]" id="reward_message"></textarea>
+        </div>
+      </div>
+      <div class="choose-pay text-left">
+        <h5>选择支付方式：</h5>
+        <div>
+          <label for="reward_channel_alipay">
+            <div style="position: relative;" class="iradio_minimal checked"><input style="position: absolute; opacity: 0;" value="alipay" checked="checked" name="reward[channel]" id="reward_channel_alipay" type="radio"><ins style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;" class="iCheck-helper"></ins></div>
+            <span class="alipay-bg"></span>
+</label>
+          
+          <label for="reward_channel_wx_pub_qr">
+            <div style="position: relative;" class="iradio_minimal"><input style="position: absolute; opacity: 0;" value="wx_pub_qr" name="reward[channel]" id="reward_channel_wx_pub_qr" type="radio"><ins style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;" class="iCheck-helper"></ins></div>
+            微信支付
+</label>        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button name="button" type="submit" class="btn btn-large btn-pay">立即支付</button>
+    </div>
+</form></div>
+
+    <div class="modal success-pay text-center hide fade" id="success-pay">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+    <h3><i class="icon-ok"></i>打赏成功</h3>
+    <img src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/complete-pay-25426877089eb23bd76d9d0e6aad89c1.png" alt="Complete pay">
+  </div>
+  <div class="modal-footer">
+    
+  </div>
+</div>
+
+</div>
+
+  <div style="z-index: 1000;" class="imagebubble-backmask image-package"><div class="image-caption">Paste_Image.png</div><div class="image-caption">Paste_Image.png</div><img style="top: 857.8px; left: 442px; width: 620px; height: 115px;" src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/296122-ae2dd8130f0ebbca_002.png" class="imagebubble-ghost"><img style="top: 3219.9px; left: 622.983px; width: 258px; height: 72px;" src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/296122-6f830e762e6569e0_002.png" class="imagebubble-ghost"></div></div>
+  <div id="flash" class="hide"></div>
+  
+  <div id="view-mode-modal" tabindex="-1" class="modal hide read-modal" aria-hidden="false" data-js-module="view-mode-modal">
+    <div class="btn-group change-background" data-toggle="buttons-radio">
+      <a class="btn btn-daytime active" data-mode="day" href="javascript:void(null);">
+        <i class="fa fa-sun-o"></i>
+</a>      <a class="btn btn-nighttime " data-mode="night" href="javascript:void(null);">
+        <i class="fa fa-moon-o"></i>
+</a>    </div>
+    <div class="btn-group change-font" data-toggle="buttons-radio">
+      <a class="btn font " data-font="font1" href="javascript:void(null);">宋体</a>
+      <a class="btn font hei active" data-font="font2" href="javascript:void(null);">黑体</a>
+    </div>
+    <div class="btn-group change-locale" data-toggle="buttons-radio">
+      <a class="btn font active" data-locale="zh-CN" href="javascript:void(null);">简</a>
+      <a class="btn font hei " data-locale="zh-TW" href="javascript:void(null);">繁</a>
+    </div>
+  </div>
+
+  
+
+  <script src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/base-d3f9a709e5a4537b87b3eff40e94a46e.js"></script>
+  
+  <script src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/reading-base-9132a81390eb5b2cc4f21734b0e9cd08.js"></script>
+  <script src="%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8AFNetworking%E7%9A%84SSL%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%20-%20%E7%AE%80%E4%B9%A6_files/note_show-12e94137c3593b4c6278c57fead5ad33.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35169517-1']);
+  _gaq.push(['_setCustomVar', 2, 'User Type', 'Visitor', 1 ]);
+  _gaq.push(['_trackPageview']);
+
+  
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+</body></html>

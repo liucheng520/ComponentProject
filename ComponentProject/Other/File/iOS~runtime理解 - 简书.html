@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<!--[if IE 6]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 7]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="ie ie8"><![endif]-->
+<!--[if IE 9]><html class="ie ie9"><![endif]-->
+<!--[if !IE]><!-->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style=""><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="description" content="Runtime是想要做好iOS开发，或者说是真正的深刻的掌握OC这门语言所必需理解的东西。最近在学习Runtime，有自己的一些心得，整理如下，一为查阅方便二为或许能给他人一些启发，三为希望得到大家对这篇整理不足之处的一些指点。什么是Runtime我们写的代码在程...">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/927c8384855a">
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/1716112">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="iOS~runtime理解" property="twitter:title">
+  <meta content="Runtime是想要做好iOS开发，或者说是真正的深刻的掌握OC这门语言所必需理解的东西。最近在学习Runtime，有自己的一些心得，整理如下，一为查阅方便二为或许能给他人一些启发，三为希望得到大家对这篇整理不足之处的一些指点。什么是Runtime我们写的代码在程..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/927c8384855a" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="iOS~runtime理解">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/927c8384855a">
+  <meta property="og:description" content="Runtime是想要做好iOS开发，或者说是真正的深刻的掌握OC这门语言所必需理解的东西。最近在学习Runtime，有自己的一些心得，整理如下，一为查阅方便二为或许能给他人一些启发，三为希望得到...">
+
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/1716112">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/1716112">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+  <title>iOS~runtime理解 - 简书</title>
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="RIFSu/n/+qbVzp68DBCrVWWPmAy0n0T+TZS+hOB826sweT+cyGCWeifIlSQCjrX7tQwOrHAnyzhAikSFCr29Uw==">
+  <!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="stylesheet" media="all" href="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/base-f935477e8faba16f29c6f9e4f0e1d032.css">
+
+    <link rel="stylesheet" media="all" href="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/reading-note-4158a6eeb7c4e4a9fd15332778cfb52c.css">
+  <link rel="stylesheet" media="all" href="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/base-read-mode-64acccf6966299cfa3d580140a2582fe.css">
+  <script src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/push.js"></script><script src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/ga.js" async="" type="text/javascript"></script><script src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/hm.js"></script><script src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/modernizr-613ea63b5aa2f0e2a1946e9c28c8eedb.js"></script>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if IE 8]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
+  <!--[if lt IE 9]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
+  <link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/57-b426758a1fcfb30486f20fd073c3b8ec.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/72-feca4b183b9d29fd188665785dc7a7f1.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/76-ba757f1ad3421192ce7192170393d2b0.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/114-8dae53b3bcea3f06bb139e329d1edab3.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/120-fa315ee0177dba4c55d4f66d4129b47f.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/152-052f5799bec8fb3aa624bdc72ef5bd1d.png" sizes="152x152">
+  <!-- Baidu stats -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+<style type="text/css"></style></head>
+
+<body class="post output zh cn mac mozilla reader-day-mode reader-font2" data-js-module="note-show" data-locale="zh-CN">
+  
+  <div style="" class="navbar navbar-jianshu shrink hide-wrap-btn">
+  <div class="dropdown">
+    <a class="dropdown-toggle logo" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+      简
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+      <li><a href="http://www.jianshu.com/"><i class="fa fa-home"></i> 首页</a></li>
+      <li><a href="http://www.jianshu.com/collections"><i class="fa fa-th"></i> 专题</a></li>
+      <li><a href="http://www.jianshu.com/user_invitations"><i class="fa fa-money"></i> 发钱啦</a></li>
+    </ul>
+  </div>
+</div>
+<div class="navbar-user">
+    <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+      <i class="fa fa-user"></i> 注册
+</a>    <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      <i class="fa fa-sign-in"></i> 登录
+</a>    <a class="daytime set-view-mode pull-right" href="javascript:void(0)"><i class="fa fa-moon-o"></i></a>
+</div>
+<div class="navbar navbar-jianshu expanded">
+  <div class="dropdown">
+      <a class="active logo" role="button" data-original-title="个人主页" data-container="div.expanded" href="http://www.jianshu.com/">
+        <b>简</b><i class="fa fa-home"></i><span class="title">首页</span>
+</a>      <a data-toggle="tooltip" data-placement="right" data-original-title="专题" data-container="div.expanded" href="http://www.jianshu.com/collections">
+        <i class="fa fa-th"></i><span class="title">专题</span>
+</a>    <a class="ad-selector" href="http://www.jianshu.com/apps">
+      <i class="fa fa-mobile"></i><span class="title">下载手机应用</span>
+</a>    <div style="display: none;" class="ad-container ">
+      <div class="ad-pop">
+        <img class="ad-logo" src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/114-8dae53b3bcea3f06bb139e329d1edab3.png" alt="114">
+        <p class="ad-title">简书</p>
+        <p class="ad-subtitle">交流故事，沟通想法</p>
+        <img class="ad-qrcode" src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/download-app-qrcode-053849fa25f9b44573ef8dd3c118a20f.png" alt="Download app qrcode">
+        <div>
+          <a class="ad-link" href="https://itunes.apple.com/cn/app/jian-shu/id888237539?ls=1&amp;mt=8">iOS</a>·
+          <a class="ad-link" href="http://downloads.jianshu.io/apps/haruki/JianShu-1.10.5.apk">Android</a>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <div class="nav-user">
+      <a href="#view-mode-modal" data-toggle="modal"><i class="fa fa-font"></i><span class="title">显示模式</span></a>
+
+      <a class="signin" data-signin-link="true" data-toggle="modal" data-placement="right" data-original-title="登录" data-container="div.expanded" href="http://www.jianshu.com/sign_in">
+        <i class="fa fa-sign-in"></i><span class="title">登录</span>
+</a>    </div>
+  </div>
+
+  
+    <div class="fixed-btn">
+    <a class="go-top" href="#"> <i class="fa fa-angle-up"></i></a>
+    <a class="qrcode" data-target="#bottom-qrcode" data-toggle="modal" href="javascript:void(0)"><i class="fa fa-qrcode"></i></a>
+    <a data-original-title="写篇文章" class="writer" href="http://www.jianshu.com/writer#/" data-toggle="tooltip" data-placement="left" title=""><i class="fa fa-pencil"></i></a>
+    <!-- qrcode modal -->
+    <div id="bottom-qrcode" class="modal panel-modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <h4>下载简书移动应用</h4>
+      <div class="panel-body"><img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/download-app-qrcode-85008f146773a25ce86bcc4d7858af68.png" alt="Download app qrcode"></div>
+    </div>
+  </div>
+
+
+  <div id="show-note-container">
+    
+<div class="post-bg" id="flag">
+  <div style="top: -1px;" class="wrap-btn hide-wrap-btn">
+    <!-- Notebook and collections button upper left -->
+      <div class="article-related pull-left">
+          <a class="collection-menu-btn" data-toggle="modal" data-target="#collection-menu" href="javascript:void(null);">
+            <i class="fa fa-th"></i>
+</a>          <a class="notebooks-menu-btn" data-toggle="modal" data-target="#notebooks-menu" href="javascript:void(null);"><i class="fa fa-list-ul"></i></a>
+        <div class="related-avatar-group activities"></div>
+      </div>
+    <!-- ******* -->
+
+      <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+    <i class="fa fa-user"></i> 注册
+</a>  <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+    <i class="fa fa-sign-in"></i> 登录
+</a>
+
+    <!-- Buttons upper right -->
+    <!-- ******* -->
+  </div>
+
+  <div class="container">
+    <!-- Article activities for width under 768px -->
+    <div class="related-avatar-group activities"></div>
+      <div class="article">
+        <div class="preview">
+          <div class="author-info">
+              <div class="btn btn-small btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-plus"></i>  <span>添加关注</span></a>
+  </div>
+
+            <a class="avatar" href="http://www.jianshu.com/users/kNDmhv">
+              <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/42b90194ae2f.jpg" alt="100">
+</a>            <span class="label">
+                作者
+            </span>
+            <a class="author-name blue-link" href="http://www.jianshu.com/users/kNDmhv">
+              <span>兴宇是谁</span>
+</a>              <span>2015.08.11 22:26</span>
+            <div>
+              <span>写了6410字</span>，<span>被262人关注</span>，<span>获得了206个喜欢</span>
+            </div>
+          </div>
+          <h1 class="title">iOS~runtime理解</h1>
+          <div class="meta-top">
+            <span class="wordage">字数2472</span>
+            <span class="views-count">阅读10780</span>
+            <span class="comments-count">评论36</span>
+            <span class="likes-count">喜欢190</span>
+          </div>
+
+          <!-- Collection/Bookmark/Share for width under 768px -->
+          <div class="article-share"><a class="bookmark" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"> <i class="fa fa-bookmark-o"></i><span>收藏文章</span></a><span> <a href="javascript:void(null)" data-toggle="dropdown"><i class="fa fa-share-square-o"></i> 分享</a> <ul class="dropdown-menu arrow-top"> <li> <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://cwb.assets.jianshu.io/notes/images/1716112/weibo/image_67217686b648.jpg',%20'%E6%8E%A8%E8%8D%90%20@%E5%85%B4%E5%AE%87%E6%98%AF%E8%B0%81%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8AiOS~runtime%E7%90%86%E8%A7%A3%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@%E7%AE%80%E4%B9%A6%20%EF%BC%89','http://www.jianshu.com/p/927c8384855a','%E9%A1%B5%E9%9D%A2%E7%BC%96%E7%A0%81gb2312|utf-8%E9%BB%98%E8%AE%A4gb2312'));"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/weibo.png"> </a> </li> <li> <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e('http://www.jianshu.com/p/927c8384855a')+'&amp;title='+e('iOS~runtime%E7%90%86%E8%A7%A3')+'&amp;sel='+e(s)+'&amp;v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&amp;r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/douban.png"> </a> </li> <li> <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url='+e('http://www.jianshu.com/p/927c8384855a')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E5%85%B4%E5%AE%87%E6%98%AF%E8%B0%81%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8AiOS~runtime%E7%90%86%E8%A7%A3%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshuio%20%EF%BC%89'),x=function(){if(!window.open(r,'tweibo','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/tweibo.png"> </a> </li> <li> <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+e('http://www.jianshu.com/p/927c8384855a')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E5%85%B4%E5%AE%87%E6%98%AF%E8%B0%81%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8AiOS~runtime%E7%90%86%E8%A7%A3%E3%80%8B'),x=function(){if(!window.open(r,'qzone','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/qzone.png"> </a> </li> <li> <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://twitter.com/share?url='+e('http://www.jianshu.com/p/927c8384855a')+'&amp;text='+e('%E6%8E%A8%E8%8D%90%20%E5%85%B4%E5%AE%87%E6%98%AF%E8%B0%81%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8AiOS~runtime%E7%90%86%E8%A7%A3%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshucom%20%EF%BC%89')+'&amp;related='+e('jianshucom'),x=function(){if(!window.open(r,'twitter','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/twitter.png"> </a> </li> <li> <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/927c8384855a',x=function(){if(!window.open(r,'facebook','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/facebook.png"> </a> </li> <li> <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://plus.google.com/share?url='+e('http://www.jianshu.com/p/927c8384855a'),x=function(){if(!window.open(r,'google_plus','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/google_plus.png"> </a> </li> <li> <a href=""> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/renren.png"> </a> </li> </ul></span></div>
+          <!-- -->
+
+          <div class="show-content"><blockquote><p>Runtime是想要做好iOS开发，或者说是真正的深刻的掌握OC这门语言所必需理解的东西。最近在学习Runtime，有自己的一些心得，整理如下，<br>一为 查阅方便<br>二为 或许能给他人一些启发，<br>三为 希望得到大家对这篇整理不足之处的一些指点。</p></blockquote>
+<h2>什么是Runtime</h2>
+<ul>
+<li>我们写的代码在程序运行过程中都会被转化成runtime的C代码执行，例如<code>[target doSomething];</code>会被转化成<code>objc_msgSend(target, @selector(doSomething));</code>。</li>
+<li>OC中一切都被设计成了对象，我们都知道一个类被初始化成一个实例，这个实例是一个对象。实际上一个类本质上也是一个对象，在runtime中用结构体表示。</li>
+<li>相关的定义：</li>
+</ul>
+<pre class="hljs cpp"><code class="cpp"><span class="hljs-comment">/// 描述类中的一个方法</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> objc_method *Method;
+
+<span class="hljs-comment">/// 实例变量</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> objc_ivar *Ivar;
+
+<span class="hljs-comment">/// 类别Category</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> objc_category *Category;
+
+<span class="hljs-comment">/// 类中声明的属性</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> objc_property *<span class="hljs-keyword">objc_property_t</span>;</code></pre>
+<ul>
+<li>类在runtime中的表示</li>
+</ul>
+<pre class="hljs cs"><code class="cs"><span class="hljs-comment">//类在runtime中的表示</span>
+<span class="hljs-keyword">struct</span> objc_class {
+    Class isa;<span class="hljs-comment">//指针，顾名思义，表示是一个什么，</span>
+    <span class="hljs-comment">//实例的isa指向类对象，类对象的isa指向元类</span>
+
+<span class="hljs-preprocessor">#<span class="hljs-keyword">if</span> !__OBJC2__</span>
+    Class super_class;  <span class="hljs-comment">//指向父类</span>
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *name;  <span class="hljs-comment">//类名</span>
+    <span class="hljs-keyword">long</span> version;
+    <span class="hljs-keyword">long</span> info;
+    <span class="hljs-keyword">long</span> instance_size
+    <span class="hljs-keyword">struct</span> objc_ivar_list *ivars <span class="hljs-comment">//成员变量列表</span>
+    <span class="hljs-keyword">struct</span> objc_method_list **methodLists; <span class="hljs-comment">//方法列表</span>
+    <span class="hljs-keyword">struct</span> objc_cache *cache;<span class="hljs-comment">//缓存</span>
+    <span class="hljs-comment">//一种优化，调用过的方法存入缓存列表，下次调用先找缓存</span>
+    <span class="hljs-keyword">struct</span> objc_protocol_list *protocols <span class="hljs-comment">//协议列表</span>
+    <span class="hljs-preprocessor">#<span class="hljs-keyword">endif</span></span>
+} OBJC2_UNAVAILABLE;
+<span class="hljs-comment">/* Use `Class` instead of `struct objc_class *` */</span></code></pre>
+<h2>获取列表</h2>
+<p>有时候会有这样的需求，我们需要知道当前类中每个属性的名字（比如字典转模型，字典的Key和模型对象的属性名字不匹配）。<br>我们可以通过runtime的一系列方法获取类的一些信息（包括属性列表，方法列表，成员变量列表，和遵循的协议列表）。</p>
+<pre class="hljs objectivec"><code class="objectivec">  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> count;
+    <span class="hljs-comment">//获取属性列表</span>
+    objc_property_t *propertyList = class_copyPropertyList([<span class="hljs-keyword">self</span> class], &amp;count);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;count; i++) {
+        <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *propertyName = property_getName(propertyList[i]);
+        <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"property----&gt;%@"</span>, [<span class="hljs-built_in">NSString</span> stringWithUTF8String:propertyName]);
+    }
+
+    <span class="hljs-comment">//获取方法列表</span>
+    Method *methodList = class_copyMethodList([<span class="hljs-keyword">self</span> class], &amp;count);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i; i&lt;count; i++) {
+        Method method = methodList[i];
+        <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"method----&gt;%@"</span>, <span class="hljs-built_in">NSStringFromSelector</span>(method_getName(method)));
+    }
+
+    <span class="hljs-comment">//获取成员变量列表</span>
+    Ivar *ivarList = class_copyIvarList([<span class="hljs-keyword">self</span> class], &amp;count);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i; i&lt;count; i++) {
+        Ivar myIvar = ivarList[i];
+        <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *ivarName = ivar_getName(myIvar);
+        <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"Ivar----&gt;%@"</span>, [<span class="hljs-built_in">NSString</span> stringWithUTF8String:ivarName]);
+    }
+
+    <span class="hljs-comment">//获取协议列表</span>
+    __unsafe_unretained Protocol **protocolList = class_copyProtocolList([<span class="hljs-keyword">self</span> class], &amp;count);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i; i&lt;count; i++) {
+        Protocol *myProtocal = protocolList[i];
+        <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *protocolName = protocol_getName(myProtocal);
+        <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"protocol----&gt;%@"</span>, [<span class="hljs-built_in">NSString</span> stringWithUTF8String:protocolName]);
+    }</code></pre>
+<p>在Xcode上跑一下看看输出吧，需要给你当前的类写几个属性，成员变量，方法和协议，不然获取的列表是没有东西的。<br>注意，调用这些获取列表的方法别忘记导入头文件<code>#import &lt;objc/runtime.h&gt;</code>。</p>
+<h2>方法调用</h2>
+<p>让我们看一下方法调用在运行时的过程（参照前文类在runtime中的表示）</p>
+<p><strong>如果用实例对象调用实例方法，会到实例的isa指针指向的对象（也就是类对象）操作。<br>如果调用的是类方法，就会到类对象的isa指针指向的对象（也就是元类对象）中操作。</strong></p>
+<ol>
+<li>首先，在相应操作的对象中的缓存方法列表中找调用的方法，如果找到，转向相应实现并执行。</li>
+<li>如果没找到，在相应操作的对象中的方法列表中找调用的方法，如果找到，转向相应实现执行</li>
+<li>如果没找到，去父类指针所指向的对象中执行1，2.</li>
+<li>以此类推，如果一直到根类还没找到，转向拦截调用。</li>
+<li>如果没有重写拦截调用的方法，程序报错。</li>
+</ol>
+<p><strong>以上的过程给我带来的启发：</strong></p>
+<ul>
+<li>重写父类的方法，并没有覆盖掉父类的方法，只是在当前类对象中找到了这个方法后就不会再去父类中找了。</li>
+<li>如果想调用已经重写过的方法的父类的实现，只需使用<code>super</code>这个编译器标识，它会在运行时跳过在当前的类对象中寻找方法的过程。</li>
+</ul>
+<h2>拦截调用</h2>
+<p>在方法调用中说到了，如果没有找到方法就会转向拦截调用。<br>那么什么是拦截调用呢。<br>拦截调用就是，在找不到调用的方法程序崩溃之前，你有机会通过重写<code>NSObject</code>的四个方法来处理。</p>
+<pre class="hljs objectivec"><code class="objectivec">+ (<span class="hljs-built_in">BOOL</span>)resolveClassMethod:(SEL)sel;
++ (<span class="hljs-built_in">BOOL</span>)resolveInstanceMethod:(SEL)sel;
+<span class="hljs-comment">//后两个方法需要转发到其他的类处理</span>
+- (<span class="hljs-keyword">id</span>)forwardingTargetForSelector:(SEL)aSelector;
+- (<span class="hljs-keyword">void</span>)forwardInvocation:(<span class="hljs-built_in">NSInvocation</span> *)anInvocation;</code></pre>
+<ul>
+<li>第一个方法是当你调用一个不存在的类方法的时候，会调用这个方法，默认返回NO，你可以加上自己的处理然后返回YES。</li>
+<li>第二个方法和第一个方法相似，只不过处理的是实例方法。</li>
+<li>第三个方法是将你调用的不存在的方法重定向到一个其他声明了这个方法的类，只需要你返回一个有这个方法的target。</li>
+<li>第四个方法是将你调用的不存在的方法打包成<code>NSInvocation</code>传给你。做完你自己的处理后，调用<code>invokeWithTarget:</code>方法让某个target触发这个方法。</li>
+</ul>
+<h2>动态添加方法</h2>
+<p>重写了拦截调用的方法并且返回了YES，我们要怎么处理呢？<br>有一个办法是根据传进来的<code>SEL</code>类型的selector动态添加一个方法。</p>
+<p>首先从外部隐式调用一个不存在的方法：</p>
+<pre class="hljs objectivec"><code class="objectivec"><span class="hljs-comment">//隐式调用方法</span>
+[target performSelector:<span class="hljs-keyword">@selector</span>(resolveAdd:) withObject:<span class="hljs-string">@"test"</span>];</code></pre>
+<p>然后，在target对象内部重写拦截调用的方法，动态添加方法。</p>
+<pre class="hljs objectivec"><code class="objectivec"><span class="hljs-keyword">void</span> runAddMethod(<span class="hljs-keyword">id</span> <span class="hljs-keyword">self</span>, SEL _cmd, <span class="hljs-built_in">NSString</span> *string){
+    <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"add C IMP "</span>, string);
+}
++ (<span class="hljs-built_in">BOOL</span>)resolveInstanceMethod:(SEL)sel{
+
+    <span class="hljs-comment">//给本类动态添加一个方法</span>
+    <span class="hljs-keyword">if</span> ([<span class="hljs-built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="hljs-string">@"resolveAdd:"</span>]) {
+        class_addMethod(<span class="hljs-keyword">self</span>, sel, (IMP)runAddMethod, <span class="hljs-string">"v@:*"</span>);
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">YES</span>;
+}</code></pre>
+<p>其中<code>class_addMethod</code>的四个参数分别是：</p>
+<ol>
+<li>
+<code>Class cls</code> 给哪个类添加方法，本例中是self</li>
+<li>
+<code>SEL name</code> 添加的方法，本例中是重写的拦截调用传进来的selector。</li>
+<li>
+<code>IMP imp</code> 方法的实现，C方法的方法实现可以直接获得。如果是OC方法，可以用<code>+ (IMP)instanceMethodForSelector:(SEL)aSelector;</code>获得方法的实现。</li>
+<li>
+<code>"v@:*"</code>方法的签名，代表有一个参数的方法。</li>
+</ol>
+<h2>关联对象</h2>
+<p>现在你准备用一个系统的类，但是系统的类并不能满足你的需求，你需要额外添加一个属性。<br>这种情况的一般解决办法就是继承。<br>但是，只增加一个属性，就去继承一个类，总是觉得太麻烦类。<br>这个时候，runtime的关联属性就发挥它的作用了。</p>
+<pre class="hljs objectivec"><code class="objectivec"><span class="hljs-comment">//首先定义一个全局变量，用它的地址作为关联对象的key</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">char</span> associatedObjectKey;
+<span class="hljs-comment">//设置关联对象</span>
+objc_setAssociatedObject(target, &amp;associatedObjectKey, <span class="hljs-string">@"添加的字符串属性"</span>, OBJC_ASSO<span class="hljs-built_in">CIATION_RETAIN_NONATOMIC</span>); <span class="hljs-comment">//获取关联对象</span>
+<span class="hljs-built_in">NSString</span> *string = objc_getAssociatedObject(target, &amp;associatedObjectKey);
+<span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"AssociatedObject = %@"</span>, string);</code></pre>
+<p><code>objc_setAssociatedObject</code>的四个参数：</p>
+<ol>
+<li>
+<code>id object</code>给谁设置关联对象。</li>
+<li>
+<code>const void *key</code>关联对象唯一的key，获取时会用到。</li>
+<li>
+<code>id value</code>关联对象。</li>
+<li>
+<code>objc_AssociationPolicy</code>关联策略，有以下几种策略：</li>
+</ol>
+<pre class="hljs objectivec"><code class="objectivec"><span class="hljs-keyword">enum</span> {
+    OBJC_ASSO<span class="hljs-built_in">CIATION_ASSIGN</span> = <span class="hljs-number">0</span>,
+    OBJC_ASSO<span class="hljs-built_in">CIATION_RETAIN_NONATOMIC</span> = <span class="hljs-number">1</span>, 
+    OBJC_ASSO<span class="hljs-built_in">CIATION_COPY_NONATOMIC</span> = <span class="hljs-number">3</span>,
+    OBJC_ASSO<span class="hljs-built_in">CIATION_RETAIN</span> = <span class="hljs-number">01401</span>,
+    OBJC_ASSO<span class="hljs-built_in">CIATION_COPY</span> = <span class="hljs-number">01403</span> 
+};</code></pre>
+<p>如果你熟悉OC，看名字应该知道这几种策略的意思了吧。</p>
+<p><code>objc_getAssociatedObject</code>的两个参数。</p>
+<ol>
+<li>
+<code>id object</code>获取谁的关联对象。</li>
+<li>
+<code>const void *key</code>根据这个唯一的key获取关联对象。</li>
+</ol>
+<p>其实，你还可以把添加和获取关联对象的方法写在你需要用到这个功能的类的类别中，方便使用。</p>
+<pre class="hljs objectivec"><code class="objectivec"><span class="hljs-comment">//添加关联对象</span>
+- (<span class="hljs-keyword">void</span>)addAssociatedObject:(<span class="hljs-keyword">id</span>)object{
+    objc_setAssociatedObject(<span class="hljs-keyword">self</span>, <span class="hljs-keyword">@selector</span>(getAssociatedObject), object, OBJC_ASSO<span class="hljs-built_in">CIATION_RETAIN_NONATOMIC</span>);
+}
+<span class="hljs-comment">//获取关联对象</span>
+- (<span class="hljs-keyword">id</span>)getAssociatedObject{
+    <span class="hljs-keyword">return</span> objc_getAssociatedObject(<span class="hljs-keyword">self</span>, _cmd);
+}</code></pre>
+<p><strong>注意：</strong>这里面我们把<code>getAssociatedObject</code>方法的地址作为唯一的key，<code>_cmd</code>代表当前调用方法的地址。</p>
+<h2>方法交换</h2>
+<p>方法交换，顾名思义，就是将两个方法的实现交换。例如，将A方法和B方法交换，调用A方法的时候，就会执行B方法中的代码，反之亦然。<br>话不多说，这是参考Mattt大神在NSHipster上的文章自己写的代码。</p>
+<pre class="hljs objectivec"><code class="objectivec"><span class="hljs-preprocessor">#import <span class="hljs-title">"UIViewController+swizzling.h"</span></span>
+<span class="hljs-preprocessor">#import <span class="hljs-title">&lt;objc/runtime.h&gt;</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">UIViewController</span> (<span class="hljs-title">swizzling</span>)</span>
+
+<span class="hljs-comment">//load方法会在类第一次加载的时候被调用</span>
+<span class="hljs-comment">//调用的时间比较靠前，适合在这个方法里做方法交换</span>
++ (<span class="hljs-keyword">void</span>)load{
+    <span class="hljs-comment">//方法交换应该被保证，在程序中只会执行一次</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">dispatch_once_t</span> onceToken;
+    <span class="hljs-built_in">dispatch_once</span>(&amp;onceToken, ^{
+
+        <span class="hljs-comment">//获得viewController的生命周期方法的selector</span>
+        SEL systemSel = <span class="hljs-keyword">@selector</span>(viewWillAppear:);
+        <span class="hljs-comment">//自己实现的将要被交换的方法的selector</span>
+        SEL swizzSel = <span class="hljs-keyword">@selector</span>(swiz_viewWillAppear:);
+        <span class="hljs-comment">//两个方法的Method</span>
+        Method systemMethod = class_getInstanceMethod([<span class="hljs-keyword">self</span> class], systemSel);
+        Method swizzMethod = class_getInstanceMethod([<span class="hljs-keyword">self</span> class], swizzSel);
+
+        <span class="hljs-comment">//首先动态添加方法，实现是被交换的方法，返回值表示添加成功还是失败</span>
+        <span class="hljs-built_in">BOOL</span> isAdd = class_addMethod(<span class="hljs-keyword">self</span>, systemSel, method_getImplementation(swizzMethod), method_getTypeEncoding(swizzMethod));
+        <span class="hljs-keyword">if</span> (isAdd) {
+            <span class="hljs-comment">//如果成功，说明类中不存在这个方法的实现</span>
+            <span class="hljs-comment">//将被交换方法的实现替换到这个并不存在的实现</span>
+            class_replaceMethod(<span class="hljs-keyword">self</span>, swizzSel, method_getImplementation(systemMethod), method_getTypeEncoding(systemMethod));
+        }<span class="hljs-keyword">else</span>{
+            <span class="hljs-comment">//否则，交换两个方法的实现</span>
+            method_exchangeImplementations(systemMethod, swizzMethod);
+        }
+
+    });
+}
+
+- (<span class="hljs-keyword">void</span>)swiz_viewWillAppear:(<span class="hljs-built_in">BOOL</span>)animated{
+    <span class="hljs-comment">//这时候调用自己，看起来像是死循环</span>
+    <span class="hljs-comment">//但是其实自己的实现已经被替换了</span>
+    [<span class="hljs-keyword">self</span> swiz_viewWillAppear:animated];
+    <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"swizzle"</span>);
+}
+
+<span class="hljs-keyword">@end</span></code></pre>
+<p>在一个自己定义的viewController中重写viewWillAppear</p>
+<pre class="hljs objectivec"><code class="objectivec">- (<span class="hljs-keyword">void</span>)viewWillAppear:(<span class="hljs-built_in">BOOL</span>)animated{
+    [<span class="hljs-keyword">super</span> viewWillAppear:animated];
+    <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"viewWillAppear"</span>);
+}</code></pre>
+<p>Run起来看看输出吧！</p>
+<p><strong>我的理解：</strong></p>
+<ul>
+<li>方法交换对于我来说更像是实现一种思想的最佳技术：AOP面向切面编程。</li>
+<li>既然是切面，就一定不要忘记，交换完再调回自己。</li>
+<li>一定要保证只交换一次，否则就会很乱。</li>
+<li>最后，据说这个技术很危险，谨慎使用。</li>
+</ul>
+<h3>完</h3>
+</div>
+        </div>
+      </div>
+
+      <div class="visitor_edit">
+        <!-- further readings -->
+        <div id="further-readings" data-user-slug="" data-user-nickname="">
+          <div id="further-reading-line" class="hide further-reading-line"></div>
+          <ul id="further-readings-list" class="reading-list unstyled"></ul>
+          <div id="further-reading-new" class="reading-edit">
+              <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-plus-circle"></i> 推荐拓展阅读
+</a>            <div id="further-reading-form"></div>
+          </div>
+        </div>
+        <div class="pull-right">
+          <!-- copyright -->
+          <div data-original-title="转载请联系作者获得授权，并标注“简书作者”。" class="author-copyright pull-right" data-toggle="tooltip" data-html="true" title="">
+            <a><i class="fa fa-copyright"></i> 著作权归作者所有</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reward / Support Author -->
+        <div class="support-author">
+          <p>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</p>
+            <a class="btn btn-pay" data-toggle="modal" href="#pay-modal">¥ 打赏支持</a>
+          <div class="avatar-list"></div>
+        </div>
+
+      <!-- article meta bottom -->
+      <div class="meta-bottom clearfix">
+        <!--  Like Button -->
+        <div class="like ">
+            <div class="like-button">
+              <a id="like-note" class="like-content" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-heart-o"></i>  喜欢
+</a></div>          <span data-original-title="查看所有喜欢的用户" id="likes-count" data-toggle="tooltip" data-placement="right" title="">190</span>        </div>
+        <!--  share group -->
+        <div class="share-group pull-right">
+          <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://cwb.assets.jianshu.io/notes/images/1716112/weibo/image_67217686b648.jpg',%20'%E6%8E%A8%E8%8D%90%20@%E5%85%B4%E5%AE%87%E6%98%AF%E8%B0%81%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8AiOS~runtime%E7%90%86%E8%A7%A3%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@%E7%AE%80%E4%B9%A6%20%EF%BC%89','http://www.jianshu.com/p/927c8384855a','%E9%A1%B5%E9%9D%A2%E7%BC%96%E7%A0%81gb2312|utf-8%E9%BB%98%E8%AE%A4gb2312'));" data-name="weibo">
+            <i class="fa fa-weibo"></i><span>分享到微博</span>
+          </a>
+          <a data-toggle="modal" href="#share-weixin-modal" data-name="weixin">
+            <i class="fa fa-weixin"></i><span>分享到微信</span>
+          </a>
+          <div class="more">
+            <a href="javascript:void(0)" data-toggle="dropdown">更多分享<i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu arrow-top">
+                <li><a href="http://cwb.assets.jianshu.io/notes/images/1716112/weibo/image_67217686b648.jpg" target="_blank" data-name="changweibo"><i class="fa fa-arrow-circle-o-down"></i> 下载长微博图片</a></li>
+                <li>
+                  <a data-name="tweibo" href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url='+e('http://www.jianshu.com/p/927c8384855a')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E5%85%B4%E5%AE%87%E6%98%AF%E8%B0%81%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8AiOS~runtime%E7%90%86%E8%A7%A3%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshuio%20%EF%BC%89'),x=function(){if(!window.open(r,'tweibo','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/tweibo.png" alt="Tweibo"> 分享到腾讯微博
+</a>                </li>
+                <li>
+                  <a data-name="qzone" href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+e('http://www.jianshu.com/p/927c8384855a')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E5%85%B4%E5%AE%87%E6%98%AF%E8%B0%81%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8AiOS~runtime%E7%90%86%E8%A7%A3%E3%80%8B'),x=function(){if(!window.open(r,'qzone','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/qzone.png" alt="Qzone"> 分享到QQ空间
+</a>                </li>
+                <li>
+                  <a data-name="twitter" href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://twitter.com/share?url='+e('http://www.jianshu.com/p/927c8384855a')+'&amp;text='+e('%E6%8E%A8%E8%8D%90%20%E5%85%B4%E5%AE%87%E6%98%AF%E8%B0%81%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8AiOS~runtime%E7%90%86%E8%A7%A3%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshucom%20%EF%BC%89')+'&amp;related='+e('jianshucom'),x=function(){if(!window.open(r,'twitter','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/twitter.png" alt="Twitter"> 分享到Twitter
+</a>                </li>
+                <li>
+                  <a data-name="facebook" href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/927c8384855a',x=function(){if(!window.open(r,'facebook','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/facebook.png" alt="Facebook"> 分享到Facebook
+</a>                </li>
+                <li>
+                  <a data-name="google_plus" href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://plus.google.com/share?url='+e('http://www.jianshu.com/p/927c8384855a'),x=function(){if(!window.open(r,'google_plus','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/google_plus.png" alt="Google plus"> 分享到Google+
+</a>                </li>
+                <li>
+                  <a data-name="douban" href="javascript:void(function(){var%20d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e('http://www.jianshu.com/p/927c8384855a')+'&amp;title='+e('iOS~runtime%E7%90%86%E8%A7%A3')+'&amp;sel='+e(s)+'&amp;v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&amp;r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()">
+                    <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/douban.png" alt="Douban"> 分享到豆瓣
+</a>                </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modals -->
+      <div id="share-weixin-modal" class="modal hide fade share-weixin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div title="http://www.jianshu.com/p/927c8384855a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weixin" class="modal-body">
+    <h5>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</h5>
+  <canvas style="display: none;" height="170" width="170"></canvas><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKoAAACqCAYAAAA9dtSCAAAH20lEQVR4nO2bQXIjMQwD/f9P715yShxJIEBJEzer5jQiCUA9vvn1er3+7Xicms3atTfpd1fuTh5O7g3PfQElA0vuBdSjHu4LKBlYci+gHvWQuVTVpGJY2aXOduBSdqmzFB3OrNFsVUeyABVQl2erOpIFqIC6PFvVkSxABdTl2aqOZEmgOpd8C6hOr+LffUZ7HU+dWTofbqEXUAF1LY/ZHkUHoIoFqOt5zPYoOgBVLEBdz2O2R9HxJ0ENG277gBxAqtmplfQAqIAKqIAKqIAqmKjuAVSvAFU0oVQnyKd0JD+25McHqEYBKqAC6iEdgBoE1alOE6NZri5Fo1LJ3iSoTiVnzWYDqnAWUPtmzWYDqnAWUPtmzWYDqnAWUPtmzWa/1BCqz0iIGsDo/anepKen5tH8AGqiN+npqXkA6qUX0+XpqXkA6qUX0+XpqXm0Pj+2X1A7oU/qUGalzqq607t21ZXKABVQv9eVygAVUL/XlcoAFVC/10sROTLVCRdP/VHuUL0X9b1TgPrHH+UO1XtR3zsFqH/8Ue5QvRf1vVPDacmAlNmqDkezU0lAqn5VjU6592TduSIMUHMeqnMBdUEYoOY8VOcC6oIwQM15qM4F1LDJJFyduhQduz6YUx+XC9do10zHVKdiSilABVRABdRyAepsEaAC6kDHVGeXyWQld+3ysOsjn/U7ul2d0VlVE4Cq7UlqVPod3a5OQAXU5X5Ht6sTUAF1ud/R7eoMz6oPq4pWn13lhuvsSuZz4mz3nQLqor/E+VEvoE7zAtQVf4nzo15AneYFqCv+EudHvYA6yWskZNrcdKlJHc5eJ/yTH+Mt9+LUj4wcIbcEAqjrecw8p866BajCXkCtn3XLAlUJ2rlUddYtcDkfTCrLZKn3ouqWsk0tVkXuMgyo9QJUQLV6ARVQAbWouR3UrotxatdFdJbqIXUPbq/j0fmYAPVQASqgPqIAFVAfUYC6EVRlmCM0aapTRycwTh5JT87eTt2AKugAVG+XMwtQBR2A6u1yZgGqoANQvV3OrNeuQHbNVmCZQe7oVD2kfjCcszMPnZ4WdgFqygOg1j0t7ALUlAdArXua7pIOG2FW4VmZNTrr6FLzqGp2s1NKyccth4EfT2pxUqQ6a3TW0aXmUdXsZqcUoAZFqrNGZx1dah5VzW52SgFqUKQ6a3TW0aXmUdXsZqfUY0F1LiZ1qUnDyeqEPtk7eu967OpVZwGqoRlQAXV5L6AC6nQYoALqEVCT4Z6CSw1ghz81g5PZnrpjQAVUKy9ABVRAFe4JUDf4A9QAqFZzKJDZ3mRApyA41etUEnp3N6ACatteQAXULQWok15AzfU6dRWoyqUqQjp7lVmz2Q7UXZ46wez86EfvAzoAFVABFVALngDVBFUx4QSm6nACGPXOdDh+q9m4H0yXZtVHYRag/tY70+H4rWYDqIAKqIZm1UdhFqD+1jvT4fitZgOohWFqoCnRig6lt8ufm8Gn7f1lN6AC6l17f9kNqIB6195fdgMqoN619+3uaUdR+M5KfVyzsymNaWCc3l0e7VkpIYBa3wuoC7NSQgC1vhdQF2alhABqfS+gLsyqLv6+PBmm+t6prnCTOtRsHU9de21Pjujq2dke9b1TgFrXkfQAqJMC1LqOpIeF2blhSiUD2KVDmZXUkQRk1ludO/Mc+GAAFVABVRECqIA62g2ogPoAUFPhJWE6/OVGPCZ1OB5vzVKelVoMqIAKqJeEC6h1D4A66XV3AeoDQFWEd16M05u81M4PNzkrVe69jN7J+aSEAyqgAqrRC6j1AtSJ8GQvoNbrKlBvEHISEKVOwePs6syn8+N78wBq9WIAFVABVdib0gyogNq6N6X5MaAmYXNEdxpOzh7NUi/Z6XXOnrrTgk5ABVRAjZgC1HGvc/ZPgjoa7phIwudcTNKDOqt6dqZbOavumc1Knf06D6irYQKqNit19us8oK6GCajarNTZr/OAuhomoGqzUmf//fuX+1+/WqcgV/wqHpLZuHUqj+SsH1qlw4C6rPNkASqgLus8WYAKqMs6T9bHgaoMU4U5olNnXQ/KLGW2C0jqR8DpTXoAVNODMkuZDaiAGvWgzFJmAyqgRj0os5TZgDoBdacQR/SuPc5eB3JXRxSQTbOm71cHAyqgds4CVGMPoF4EaipM5ax6EUpgnXs7n1N7b9Xx5lkDAFA/A5BbdLx51gAA1M8A5BYdb541AAD1MwC5RcePZ0pnU+0CytGkvnf8OrqcUkB1Zqs6AFXQpL53/Dq6nAJUVxigRvaqupJ7AVWY5WhS3zt+HV1OPQZUBxgHLiWQ1J5AWMs6HY+qzqSO6p7uewPU4h5ABdRWw4oOQAXUY4YVHYB6KajJ2hXmu/Ndvc5HcWseo/fuj0D44wNUQAXU6y7G6QVUrQB1ch5QPwzUkeHkpaqznHAdXclH2eWUm+0p/2/eA+qqLkAFVEAF1DtBdS7mRiBmezo9ODoUXcnewmxABdQ1XcleQAXU8tmZrmQvoAJq+exMV7L3MaCaoltATYK7c/bofVJ3sle5h68HUAF1TXeyF1ABFVABdb0AdSOoTjkXsxO+QmBLsztBVWrnB9KpA1ABdcssQF04D6iA2iIMUHP1J0HtfGbCnV4nEDO8mN/qWVeHqtO5NyXLN+8BFVDXdwMqoJbOujpUnYAKqKWzrg5V5ylQ/wNjrxhWFvBd6AAAAABJRU5ErkJggg==" style="display: block;"></div>
+</div>
+
+      
+      <div id="notebooks-menu" class="panel notebooks-menu arrow-top modal hide fade"><img class="loader-tiny" src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/tiny.gif" alt="Tiny"></div>
+      <div id="collection-menu" class="panel collection-menu arrow-top modal hide fade"><img class="loader-tiny" src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/tiny.gif" alt="Tiny"></div>
+      
+      <div id="likes-modal" class="modal modal_new support_list-modal fullscreen hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>喜欢的用户</h3>
+      </div>
+      <div class="modal-body">
+        <ul class="unstyled users">
+        <li data-user-id="172620"> <a class="avatar" href="http://www.jianshu.com/users/33967084fc5b"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/7-a82e998966cef5ab3eeda59b4297b619.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/33967084fc5b">地选之猿</a> <span class="time">2016.05.20 14:34</span></li><li data-user-id="1363210"> <a class="avatar" href="http://www.jianshu.com/users/959035957888"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/c401f5bdb9d4.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/959035957888">溪沙浣歌</a> <span class="time">2016.05.17 10:20</span></li><li data-user-id="1772649"> <a class="avatar" href="http://www.jianshu.com/users/71ea4fe47a39"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/6-c3a19bc117a55e66cd3be55684d8191c.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/71ea4fe47a39">我不乖啦啦</a> <span class="time">2016.05.13 18:22</span></li><li data-user-id="1212148"> <a class="avatar" href="http://www.jianshu.com/users/6b3e0fe5aa40"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/9-ece2d3668ecf525c902de6c8672b6435.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/6b3e0fe5aa40">HOHD</a> <span class="time">2016.05.10 08:21</span></li><li data-user-id="709522"> <a class="avatar" href="http://www.jianshu.com/users/52fcca83348f"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/15-57a3e97082943073824a3529187f31f9.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/52fcca83348f">久远的回忆</a> <span class="time">2016.05.09 17:06</span></li><li data-user-id="900142"> <a class="avatar" href="http://www.jianshu.com/users/dbf13edac76e"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/9-ece2d3668ecf525c902de6c8672b6435.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/dbf13edac76e">JonneyDai</a> <span class="time">2016.05.09 14:38</span></li><li data-user-id="1913046"> <a class="avatar" href="http://www.jianshu.com/users/e758f67ef355"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/15-57a3e97082943073824a3529187f31f9.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/e758f67ef355">雷雨庭花</a> <span class="time">2016.05.07 08:18</span></li><li data-user-id="1409703"> <a class="avatar" href="http://www.jianshu.com/users/e382768d3535"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/54b8f11982d9.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/e382768d3535">萧雨墨</a> <span class="time">2016.05.06 13:43</span></li><li data-user-id="1361697"> <a class="avatar" href="http://www.jianshu.com/users/f92d9d1d1375"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/3bd7935b0aff.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/f92d9d1d1375">曉風滿月</a> <span class="time">2016.05.06 11:34</span></li><li data-user-id="1163030"> <a class="avatar" href="http://www.jianshu.com/users/7a2b069da2de"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/f187423c8d0c.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/7a2b069da2de">_黑_Owen</a> <span class="time">2016.05.05 10:41</span></li><li data-user-id="759898"> <a class="avatar" href="http://www.jianshu.com/users/334bc5a619ce"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/cc4115315c8b.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/334bc5a619ce">AlwaysBlue</a> <span class="time">2016.05.04 17:25</span></li><li data-user-id="325122"> <a class="avatar" href="http://www.jianshu.com/users/bd35533252df"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/7dc2d945747b.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/bd35533252df">NULL_POINTER</a> <span class="time">2016.05.01 14:16</span></li><li data-user-id="1977470"> <a class="avatar" href="http://www.jianshu.com/users/a978a03424d9"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/2-65a6e6d032559f3c53475eb61d7ea573.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/a978a03424d9">yfming93</a> <span class="time">2016.04.30 22:10</span></li><li data-user-id="1951020"> <a class="avatar" href="http://www.jianshu.com/users/3c283dd31857"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/edd834b2f132.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/3c283dd31857">就叫West怎么了</a> <span class="time">2016.04.25 13:48</span></li><li data-user-id="1874221"> <a class="avatar" href="http://www.jianshu.com/users/196bb64905db"> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/9-ece2d3668ecf525c902de6c8672b6435.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/196bb64905db">iOS_YXT</a> <span class="time">2016.04.23 23:19</span></li><a class="more hidden" data-max-id="17235842" href="javascript:void(null);"><i class="fa fa-ellipsis-h"></i></a></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Comments -->
+    <div id="comments" class="comment-list clearfix">
+        <div class="comment-head clearfix">
+          36条评论
+          <span class="order">
+            （
+            <a data-order="asc" class="active" href="javascript:void(0)">按时间正序</a>·
+            <a data-order="desc" href="javascript:void(0)">按时间倒序</a>·
+            <a data-order="likes_count" href="javascript:void(0)">按喜欢排序</a>
+            ）
+          </span>
+            <a class="goto-comment pull-right" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+              <i class="fa fa-pencil"></i>添加新评论
+</a>        </div>
+        <div id="comment-list"><script type="application/json" data-name="comments-info">
+  {"comments":[{"id":486372,"children_count":0,"likes_count":0},{"id":487269,"children_count":0,"likes_count":0},{"id":488381,"children_count":0,"likes_count":0},{"id":488411,"children_count":0,"likes_count":0},{"id":489239,"children_count":0,"likes_count":0},{"id":489558,"children_count":0,"likes_count":0},{"id":492958,"children_count":0,"likes_count":0},{"id":494431,"children_count":0,"likes_count":0},{"id":515176,"children_count":0,"likes_count":0},{"id":524958,"children_count":0,"likes_count":0},{"id":526166,"children_count":1,"likes_count":0},{"id":547748,"children_count":0,"likes_count":0},{"id":548589,"children_count":0,"likes_count":0},{"id":549700,"children_count":0,"likes_count":0},{"id":560426,"children_count":0,"likes_count":0}]}
+</script>
+
+
+<div class="note-comment clearfix" id="comment-486372">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/55df555b10c0">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/e18a14963930.png" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/55df555b10c0">风了个1</a>
+        </p>
+        <span class="reply-time">
+          <small>2 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/486372#comment-486372">2015.08.12 11:30</a></span>
+      </div>
+      <p>谢谢整理  </p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="486372" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="486372" data-nickname="风了个1" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-487269">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/2f3e8481036f">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/e88b91b319d1.png" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/2f3e8481036f">待绝笔墨痕干</a>
+        </p>
+        <span class="reply-time">
+          <small>3 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/487269#comment-487269">2015.08.12 18:13</a></span>
+      </div>
+      <p>解释的很到位。感谢</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="487269" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="487269" data-nickname="待绝笔墨痕干" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-488381">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/a705609fc550">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/692ed89030ee.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/a705609fc550">Lusper</a>
+        </p>
+        <span class="reply-time">
+          <small>4 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/488381#comment-488381">2015.08.13 08:19</a></span>
+      </div>
+      <p>很好，上工了，用一下</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="488381" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="488381" data-nickname="Lusper" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-488411">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/a02909a8a93b">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/8d9adcb2594b.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/a02909a8a93b">奴良</a>
+        </p>
+        <span class="reply-time">
+          <small>5 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/488411#comment-488411">2015.08.13 08:34</a></span>
+      </div>
+      <p>很不错</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="488411" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="488411" data-nickname="奴良" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-489239">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/cd1fcb172f50">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/6-c3a19bc117a55e66cd3be55684d8191c.jpg" alt="6">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/cd1fcb172f50">Code4Apple</a>
+        </p>
+        <span class="reply-time">
+          <small>6 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/489239#comment-489239">2015.08.13 14:44</a></span>
+      </div>
+      <p>很好的介绍了runtime</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="489239" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="489239" data-nickname="Code4Apple" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-489558">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/076674d54c1c">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/9fca2a91ff5b.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/076674d54c1c">星_安啦</a>
+        </p>
+        <span class="reply-time">
+          <small>7 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/489558#comment-489558">2015.08.13 17:19</a></span>
+      </div>
+      <p>阿鲁 Tom out<br>他就n近距离感受着大自然</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="489558" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="489558" data-nickname="星_安啦" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-492958">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/014f97555b69">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/e86bf74adacf.png" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/014f97555b69">Tieria</a>
+        </p>
+        <span class="reply-time">
+          <small>11 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/492958#comment-492958">2015.08.14 14:48</a></span>
+      </div>
+      <p>不错</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="492958" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="492958" data-nickname="Tieria" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-494431">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/d99e841a942e">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/5-7cb2e7ce742a5c05b1a4fbebace48f1a.jpg" alt="5">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/d99e841a942e">卡卡3345</a>
+        </p>
+        <span class="reply-time">
+          <small>12 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/494431#comment-494431">2015.08.15 06:23</a></span>
+      </div>
+      <p>真心不错 楼猪 辛苦了</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="494431" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="494431" data-nickname="卡卡3345" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-515176">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/efbf27ea50f8">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/4a825909f9ac.png" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/efbf27ea50f8">efbf27ea50f8</a>
+        </p>
+        <span class="reply-time">
+          <small>13 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/515176#comment-515176">2015.08.22 08:18</a></span>
+      </div>
+      <p>给力</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="515176" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="515176" data-nickname="efbf27ea50f8" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-524958">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/a2d5efef38ae">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/10-f47ea4d685571bcb63f5b1ea99527d09.jpg" alt="10">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/a2d5efef38ae">柠檬沟酸奶</a>
+        </p>
+        <span class="reply-time">
+          <small>14 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/524958#comment-524958">2015.08.25 13:13</a></span>
+      </div>
+      <p> <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/blush.png" alt=":blush:" title=":blush:" class="emoji" height="20" width="20"> </p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="524958" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="524958" data-nickname="柠檬沟酸奶" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-526166">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/31e0ef9a7fd8">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/4-ba9d62f772acabf0df353d9ce8b96ccb.jpg" alt="4">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/31e0ef9a7fd8">18612254213</a>
+        </p>
+        <span class="reply-time">
+          <small>15 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/526166#comment-526166">2015.08.25 20:34</a></span>
+      </div>
+      <p>有没有动态添加方法的demon看看</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="526166" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="526166" data-nickname="18612254213" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list ">
+        <div class="child-comment" id="comment-526482" data-id="526482">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/kNDmhv">兴宇是谁</a>：
+      <a href="http://www.jianshu.com/users/31e0ef9a7fd8" class="maleskine-author" target="_blank" data-user-slug="31e0ef9a7fd8">@18612254213</a> 呃 那个代码找不到了  除了继承那几个方法以外  你还可以手动添加  但是我暂时没有想到 手动添加有什么应用场景。  见谅
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="526166" data-nickname="兴宇是谁" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/927c8384855a/comments/526482#comment-526482">2015.08.25 22:23</a></span>
+      
+    </div>
+  </div>
+
+      <div data-state="remaining-child-comments"></div>
+        <div class="comment-toolbar clearfix">
+          <span class="pull-right">
+            <a data-id="526166" class="reply" href="javascript:void(null)"><i class="fa fa-pencil"></i> 添加新回复</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-547748">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/6b9f742d23da">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/087d5b7fdf3a.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/6b9f742d23da">细节造就完美丶</a>
+        </p>
+        <span class="reply-time">
+          <small>16 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/547748#comment-547748">2015.09.01 00:12</a></span>
+      </div>
+      <p>🙏🏻🙏🏻</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="547748" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="547748" data-nickname="细节造就完美丶" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-548589">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/1138d8974094">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/13-8072fce67829ce128ba5df823205516c.jpg" alt="13">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/1138d8974094">Madmanyyk</a>
+        </p>
+        <span class="reply-time">
+          <small>17 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/548589#comment-548589">2015.09.01 12:14</a></span>
+      </div>
+      <p>写的不错</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="548589" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="548589" data-nickname="Madmanyyk" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-549700">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/ddaa8dae50b0">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/1d62d35f3bd9.png" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/ddaa8dae50b0">Ian_He</a>
+        </p>
+        <span class="reply-time">
+          <small>18 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/549700#comment-549700">2015.09.01 18:25</a></span>
+      </div>
+      <p>需要了解, 可以随意测试调试, 但在工程里面少用</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="549700" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="549700" data-nickname="Ian_He" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-560426">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/956052ad9fc3">
+          <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/602b038ef870.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/956052ad9fc3">落叶纷飞</a>
+        </p>
+        <span class="reply-time">
+          <small>19 楼 · </small>
+          <a href="http://www.jianshu.com/p/927c8384855a/comments/560426#comment-560426">2015.09.05 02:59</a></span>
+      </div>
+      <p>make</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="560426" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="560426" data-nickname="落叶纷飞" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+
+  <p class="load-more">
+    <a class="blue-link" data-type="html" data-action="load-comments" data-remote="true" href="http://www.jianshu.com/notes/1716112/comments?max_id=2431812&amp;order=asc&amp;page=2">加载更多 <i class="fa fa-arrow-down"></i></a>
+  </p>
+</div>
+          <p class="signout-comment">
+    <a class="btn btn-info" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      登录后发表评论
+</a>  </p>
+
+    </div>
+    <!-- -->
+
+  </div>
+
+  <script type="application/json" data-name="note">
+    {"id":1716112,"abbr":"Runtime是想要做好iOS开发，或者说是真正的深刻的掌握OC这门语言所必需理解的东西。最近在学习Runtime，有自己的一些心得，整理如下，一为查阅方便二为或许能给他人一些启发，三为希望得到大家对这篇整理不足之处的一些指点。什么是Runtime我们写的代码在程...","slug":"927c8384855a","url":"http://www.jianshu.com/p/927c8384855a","image_url":"http://cwb.assets.jianshu.io/notes/images/1716112/weibo/image_67217686b648.jpg","wordage":2472,"has_further_readings":false,"views_count":10780,"likes_count":190,"comments_count":36,"rewards_total_count":0}
+  </script>
+
+  <script type="application/json" data-name="uuid">
+    {"uuid":"094b5710-008f-0134-6156-525400918cd7"}
+  </script>
+
+  <script type="application/json" data-name="author">
+    {"id":809,"nickname":"兴宇是谁","slug":"kNDmhv","public_notes_count":8,"followers_count":262,"total_likes_count":206,"is_current_user":false,"is_signed_author":false}
+  </script>
+
+
+    <div class="include-collection">
+      <div class="content">
+        <h5>被以下专题收入，发现更多相似内容：</h5>
+        <ul id="all-collections" class="unstyled collections-list">
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/bDHhpK"><img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/rdn_4ddb18fddd2e9_1.jpg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/bDHhpK">首页投稿</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>100.6K</span>
+  </div>
+
+                <p class="description">玩转简书的第一步，从这个专题开始。
+
+想上首页热门榜么？好内容想被更多人看到么？来投稿吧！如果被拒也不要灰心哦～入选文章会进一个队...</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/bDHhpK">57008篇文章</a> · 100662人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/NEt52a"><img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/computer_guy.jpg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/NEt52a">程序员</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>90.4K</span>
+  </div>
+
+                <p class="description">简书程序员大本营
+
+投稿须知：
+1.本专题仅收录与程序有关的文章。
+2.请在代码框里写代码，尽量保证可看性。
+
+关注简书官...</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/NEt52a">13382篇文章</a> · 90472人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/19dbe28002a3"><img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/c4409daa19d59b1950bf3bed66a49495.jpg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/19dbe28002a3">iOS开发技巧</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>14.9K</span>
+  </div>
+
+                <p class="description"> 【简介】
+专题内容主要包括OC、swift等涉及到iOS开发进阶的内容。
+swift可以关注下我的另一个专题：
+swift开发...</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/19dbe28002a3">1015篇文章</a> · 14968人关注
+                </p>
+              </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+  <!-- Modal -->
+    <div class="modal pay-modal text-center hide fade" id="pay-modal">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <form id="new_reward" class="new_reward" target="_blank" action="/notes/1716112/rewards" accept-charset="UTF-8" method="post"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="RIFSu/n/+qbVzp68DBCrVWWPmAy0n0T+TZS+hOB826sweT+cyGCWeifIlSQCjrX7tQwOrHAnyzhAikSFCr29Uw==" type="hidden">
+    <div class="modal-body">
+      <a href="http://www.jianshu.com/users/kNDmhv">
+        <div class="avatar"><img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/42b90194ae2f.jpg" alt="100"></div>
+</a>      <p><i class="fa fa-quote-left pull-left"></i>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！<i class="fa fa-quote-right pull-right"></i></p>
+      <div class="main-inputs text-left">
+        <div class="control-group">
+          <label for="reward_amount">打赏金额</label><i class="fa fa-yen"></i>
+          <input value="2.00" name="reward[amount_in_yuan]" id="reward_amount_in_yuan" type="text">
+        </div>
+        <div class="control-group message">
+          <textarea placeholder="给Ta留言" name="reward[message]" id="reward_message"></textarea>
+        </div>
+      </div>
+      <div class="choose-pay text-left">
+        <h5>选择支付方式：</h5>
+        <div>
+          <label for="reward_channel_alipay">
+            <div style="position: relative;" class="iradio_minimal checked"><input style="position: absolute; opacity: 0;" value="alipay" checked="checked" name="reward[channel]" id="reward_channel_alipay" type="radio"><ins style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;" class="iCheck-helper"></ins></div>
+            <span class="alipay-bg"></span>
+</label>
+          
+          <label for="reward_channel_wx_pub_qr">
+            <div style="position: relative;" class="iradio_minimal"><input style="position: absolute; opacity: 0;" value="wx_pub_qr" name="reward[channel]" id="reward_channel_wx_pub_qr" type="radio"><ins style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;" class="iCheck-helper"></ins></div>
+            微信支付
+</label>        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button name="button" type="submit" class="btn btn-large btn-pay">立即支付</button>
+    </div>
+</form></div>
+
+    <div class="modal success-pay text-center hide fade" id="success-pay">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+    <h3><i class="icon-ok"></i>打赏成功</h3>
+    <img src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/complete-pay-25426877089eb23bd76d9d0e6aad89c1.png" alt="Complete pay">
+  </div>
+  <div class="modal-footer">
+    
+  </div>
+</div>
+
+</div>
+
+  </div>
+  <div id="flash" class="hide"></div>
+  
+  <div id="view-mode-modal" tabindex="-1" class="modal hide read-modal" aria-hidden="false" data-js-module="view-mode-modal">
+    <div class="btn-group change-background" data-toggle="buttons-radio">
+      <a class="btn btn-daytime active" data-mode="day" href="javascript:void(null);">
+        <i class="fa fa-sun-o"></i>
+</a>      <a class="btn btn-nighttime " data-mode="night" href="javascript:void(null);">
+        <i class="fa fa-moon-o"></i>
+</a>    </div>
+    <div class="btn-group change-font" data-toggle="buttons-radio">
+      <a class="btn font " data-font="font1" href="javascript:void(null);">宋体</a>
+      <a class="btn font hei active" data-font="font2" href="javascript:void(null);">黑体</a>
+    </div>
+    <div class="btn-group change-locale" data-toggle="buttons-radio">
+      <a class="btn font active" data-locale="zh-CN" href="javascript:void(null);">简</a>
+      <a class="btn font hei " data-locale="zh-TW" href="javascript:void(null);">繁</a>
+    </div>
+  </div>
+
+  
+
+  <script src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/base-d3f9a709e5a4537b87b3eff40e94a46e.js"></script>
+  
+  <script src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/reading-base-9132a81390eb5b2cc4f21734b0e9cd08.js"></script>
+  <script src="iOS%7Eruntime%E7%90%86%E8%A7%A3%20-%20%E7%AE%80%E4%B9%A6_files/note_show-12e94137c3593b4c6278c57fead5ad33.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35169517-1']);
+  _gaq.push(['_setCustomVar', 2, 'User Type', 'Visitor', 1 ]);
+  _gaq.push(['_trackPageview']);
+
+  
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+</body></html>

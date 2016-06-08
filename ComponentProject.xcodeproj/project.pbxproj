@@ -13,6 +13,17 @@
 		8E0F05E01D07E69500E4016F /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F05CB1D07E69500E4016F /* AESCrypt.m */; };
 		8E0F05E11D07E69500E4016F /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F05CD1D07E69500E4016F /* GTMBase64.m */; };
 		8E0F06071D07EF0700E4016F /* zipAndUnzip.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F06061D07EF0700E4016F /* zipAndUnzip.m */; };
+		8E0F06111D07F41F00E4016F /* 代码提交检查.doc in Resources */ = {isa = PBXBuildFile; fileRef = 8E0F06091D07F41F00E4016F /* 代码提交检查.doc */; };
+		8E0F06121D07F41F00E4016F /* 利用pod_trunk发布程序.md in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F060A1D07F41F00E4016F /* 利用pod_trunk发布程序.md */; };
+		8E0F06141D07F41F00E4016F /* 正确使用AFNetworking的SSL保证网络安全 - 简书.html in Resources */ = {isa = PBXBuildFile; fileRef = 8E0F060C1D07F41F00E4016F /* 正确使用AFNetworking的SSL保证网络安全 - 简书.html */; };
+		8E0F06151D07F41F00E4016F /* cocospod 安装和使用 - eqera的专栏 - 博客频道 - CSDN.NET.webarchive in Resources */ = {isa = PBXBuildFile; fileRef = 8E0F060D1D07F41F00E4016F /* cocospod 安装和使用 - eqera的专栏 - 博客频道 - CSDN.NET.webarchive */; };
+		8E0F06161D07F41F00E4016F /* iOS~runtime理解 - 简书.html in Resources */ = {isa = PBXBuildFile; fileRef = 8E0F060E1D07F41F00E4016F /* iOS~runtime理解 - 简书.html */; };
+		8E0F06171D07F41F00E4016F /* pod使用.doc in Resources */ = {isa = PBXBuildFile; fileRef = 8E0F060F1D07F41F00E4016F /* pod使用.doc */; };
+		8E0F06241D07FC9E00E4016F /* PhotoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F061B1D07FC9E00E4016F /* PhotoItem.m */; };
+		8E0F06251D07FC9E00E4016F /* YCImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F061D1D07FC9E00E4016F /* YCImageViewController.m */; };
+		8E0F06261D07FC9E00E4016F /* YCPhotosPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F061F1D07FC9E00E4016F /* YCPhotosPageViewController.m */; };
+		8E0F06271D07FC9E00E4016F /* YCPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F06211D07FC9E00E4016F /* YCPhotoView.m */; };
+		8E0F06281D07FC9E00E4016F /* ZoomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F06231D07FC9E00E4016F /* ZoomTransition.m */; };
 		8E8399B41D06A249002AFF41 /* TextInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8399B31D06A249002AFF41 /* TextInputView.m */; };
 		8E8399BC1D06C9D6002AFF41 /* InPutview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8399BB1D06C9D6002AFF41 /* InPutview.m */; };
 		8ED0E9DA1D0558C0002BC4D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0E9D91D0558C0002BC4D7 /* main.m */; };
@@ -88,6 +99,22 @@
 		8E0F05ED1D07E80700E4016F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8E0F06051D07EF0700E4016F /* zipAndUnzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zipAndUnzip.h; sourceTree = "<group>"; };
 		8E0F06061D07EF0700E4016F /* zipAndUnzip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zipAndUnzip.m; sourceTree = "<group>"; };
+		8E0F06091D07F41F00E4016F /* 代码提交检查.doc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "代码提交检查.doc"; sourceTree = "<group>"; };
+		8E0F060A1D07F41F00E4016F /* 利用pod_trunk发布程序.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "利用pod_trunk发布程序.md"; sourceTree = "<group>"; };
+		8E0F060C1D07F41F00E4016F /* 正确使用AFNetworking的SSL保证网络安全 - 简书.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "正确使用AFNetworking的SSL保证网络安全 - 简书.html"; sourceTree = "<group>"; };
+		8E0F060D1D07F41F00E4016F /* cocospod 安装和使用 - eqera的专栏 - 博客频道 - CSDN.NET.webarchive */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "cocospod 安装和使用 - eqera的专栏 - 博客频道 - CSDN.NET.webarchive"; sourceTree = "<group>"; };
+		8E0F060E1D07F41F00E4016F /* iOS~runtime理解 - 简书.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "iOS~runtime理解 - 简书.html"; sourceTree = "<group>"; };
+		8E0F060F1D07F41F00E4016F /* pod使用.doc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pod使用.doc"; sourceTree = "<group>"; };
+		8E0F061A1D07FC9E00E4016F /* PhotoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoItem.h; sourceTree = "<group>"; };
+		8E0F061B1D07FC9E00E4016F /* PhotoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoItem.m; sourceTree = "<group>"; };
+		8E0F061C1D07FC9E00E4016F /* YCImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCImageViewController.h; sourceTree = "<group>"; };
+		8E0F061D1D07FC9E00E4016F /* YCImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCImageViewController.m; sourceTree = "<group>"; };
+		8E0F061E1D07FC9E00E4016F /* YCPhotosPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCPhotosPageViewController.h; sourceTree = "<group>"; };
+		8E0F061F1D07FC9E00E4016F /* YCPhotosPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCPhotosPageViewController.m; sourceTree = "<group>"; };
+		8E0F06201D07FC9E00E4016F /* YCPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCPhotoView.h; sourceTree = "<group>"; };
+		8E0F06211D07FC9E00E4016F /* YCPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCPhotoView.m; sourceTree = "<group>"; };
+		8E0F06221D07FC9E00E4016F /* ZoomTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomTransition.h; sourceTree = "<group>"; };
+		8E0F06231D07FC9E00E4016F /* ZoomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomTransition.m; sourceTree = "<group>"; };
 		8E8399B21D06A249002AFF41 /* TextInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextInputView.h; sourceTree = "<group>"; };
 		8E8399B31D06A249002AFF41 /* TextInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextInputView.m; sourceTree = "<group>"; };
 		8E8399BA1D06C9D6002AFF41 /* InPutview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InPutview.h; sourceTree = "<group>"; };
@@ -254,6 +281,36 @@
 			path = ZipData;
 			sourceTree = "<group>";
 		};
+		8E0F06081D07F40F00E4016F /* File */ = {
+			isa = PBXGroup;
+			children = (
+				8E0F06091D07F41F00E4016F /* 代码提交检查.doc */,
+				8E0F060A1D07F41F00E4016F /* 利用pod_trunk发布程序.md */,
+				8E0F060C1D07F41F00E4016F /* 正确使用AFNetworking的SSL保证网络安全 - 简书.html */,
+				8E0F060D1D07F41F00E4016F /* cocospod 安装和使用 - eqera的专栏 - 博客频道 - CSDN.NET.webarchive */,
+				8E0F060E1D07F41F00E4016F /* iOS~runtime理解 - 简书.html */,
+				8E0F060F1D07F41F00E4016F /* pod使用.doc */,
+			);
+			path = File;
+			sourceTree = "<group>";
+		};
+		8E0F06191D07FC9E00E4016F /* YCPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				8E0F061A1D07FC9E00E4016F /* PhotoItem.h */,
+				8E0F061B1D07FC9E00E4016F /* PhotoItem.m */,
+				8E0F061C1D07FC9E00E4016F /* YCImageViewController.h */,
+				8E0F061D1D07FC9E00E4016F /* YCImageViewController.m */,
+				8E0F061E1D07FC9E00E4016F /* YCPhotosPageViewController.h */,
+				8E0F061F1D07FC9E00E4016F /* YCPhotosPageViewController.m */,
+				8E0F06201D07FC9E00E4016F /* YCPhotoView.h */,
+				8E0F06211D07FC9E00E4016F /* YCPhotoView.m */,
+				8E0F06221D07FC9E00E4016F /* ZoomTransition.h */,
+				8E0F06231D07FC9E00E4016F /* ZoomTransition.m */,
+			);
+			path = YCPhotoBrowser;
+			sourceTree = "<group>";
+		};
 		8E8399B11D06A249002AFF41 /* TextInputTextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,6 +403,7 @@
 		8ED0EA0D1D055DD7002BC4D7 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				8E0F06081D07F40F00E4016F /* File */,
 				8ED0E9DB1D0558C0002BC4D7 /* AppDelegate.h */,
 				8ED0E9DC1D0558C0002BC4D7 /* AppDelegate.m */,
 				8ED0E9E41D0558C0002BC4D7 /* Assets.xcassets */,
@@ -396,6 +454,7 @@
 		8ED0EA111D055EE7002BC4D7 /* ThreeParty */ = {
 			isa = PBXGroup;
 			children = (
+				8E0F06191D07FC9E00E4016F /* YCPhotoBrowser */,
 				8E0F05C81D07E69500E4016F /* Encrypting */,
 				8E0F05C11D07E43800E4016F /* BlurGlass */,
 				8E8399B91D06C9D6002AFF41 /* LoginInputView */,
@@ -661,7 +720,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8ED0E9E81D0558C0002BC4D7 /* LaunchScreen.storyboard in Resources */,
+				8E0F06111D07F41F00E4016F /* 代码提交检查.doc in Resources */,
+				8E0F06151D07F41F00E4016F /* cocospod 安装和使用 - eqera的专栏 - 博客频道 - CSDN.NET.webarchive in Resources */,
 				8ED0E9E51D0558C0002BC4D7 /* Assets.xcassets in Resources */,
+				8E0F06141D07F41F00E4016F /* 正确使用AFNetworking的SSL保证网络安全 - 简书.html in Resources */,
+				8E0F06161D07F41F00E4016F /* iOS~runtime理解 - 简书.html in Resources */,
+				8E0F06171D07F41F00E4016F /* pod使用.doc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,20 +810,26 @@
 				8ED0E9DD1D0558C0002BC4D7 /* AppDelegate.m in Sources */,
 				8ED0EA621D05768C002BC4D7 /* Common.m in Sources */,
 				8ED0EA5C1D057596002BC4D7 /* UIView+Extension.m in Sources */,
+				8E0F06261D07FC9E00E4016F /* YCPhotosPageViewController.m in Sources */,
 				8ED0EA271D0562F8002BC4D7 /* BaseNavigationController.m in Sources */,
 				8ED0EA7C1D05779F002BC4D7 /* TPKeyboardAvoidingTableView.m in Sources */,
 				8ED0EA2D1D056368002BC4D7 /* UserInfoModel.m in Sources */,
+				8E0F06271D07FC9E00E4016F /* YCPhotoView.m in Sources */,
 				8E8399B41D06A249002AFF41 /* TextInputView.m in Sources */,
 				8ED0EA991D057B17002BC4D7 /* ErrorPromt.m in Sources */,
+				8E0F06121D07F41F00E4016F /* 利用pod_trunk发布程序.md in Sources */,
 				8ED0EA441D0574E7002BC4D7 /* ZWEmoji.m in Sources */,
 				8ED0EA241D0562C9002BC4D7 /* LoginViewController.m in Sources */,
 				8ED0EA561D057574002BC4D7 /* UIColor+Common.m in Sources */,
 				8ED0EA8D1D057A8C002BC4D7 /* UIImageView+Extention.m in Sources */,
 				8ED0EA611D05768C002BC4D7 /* Check.m in Sources */,
+				8E0F06241D07FC9E00E4016F /* PhotoItem.m in Sources */,
 				8E0F06071D07EF0700E4016F /* zipAndUnzip.m in Sources */,
+				8E0F06281D07FC9E00E4016F /* ZoomTransition.m in Sources */,
 				8ED0EA521D057552002BC4D7 /* NSString+Extention.m in Sources */,
 				8ED0EA7B1D05779F002BC4D7 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				8ED0EA6C1D0576E4002BC4D7 /* LCMenuBar.m in Sources */,
+				8E0F06251D07FC9E00E4016F /* YCImageViewController.m in Sources */,
 				8ED0EA5B1D057596002BC4D7 /* UIImage+Extention.m in Sources */,
 				8ED0EA681D0576B7002BC4D7 /* GeogerChange.m in Sources */,
 				8ED0EA501D057552002BC4D7 /* NSDate+LC.m in Sources */,
