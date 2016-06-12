@@ -16,6 +16,11 @@
 - (NSString *)addBaseUrl;
 
 /**
+ *  去除掉text的开头和结尾的空格
+ */
+- (NSString *)cutwhitespace;
+
+/**
  *  获取文字size
  */
 - (CGSize)sizeOfMaxSize:(CGSize)maxSize fontSize:(CGFloat)fontSize;
@@ -64,5 +69,10 @@
  *  是否是中文
  */
 - (BOOL)isChinese;
+
+/**
+ *  绝对露尽
+ */
+@property (nonatomic,copy) NSString *absolutePath;
 
 @end

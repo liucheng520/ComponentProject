@@ -25,6 +25,7 @@
 #import "UserInfoModel.h"
 #import <AFNetworking.h>
 #import <SVProgressHUD.h>
+#import <MJExtension.h>
 
 //数据请求相关
 #import "ErrorPromt.h"

@@ -16,6 +16,8 @@
 
 @property (nonatomic,strong) UIButton *entranceButton;
 
+@property (nonatomic,strong) NSArray *imgs;
+
 @end
 
 @implementation GuideViewController
@@ -42,22 +44,28 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     //添加引导也图片
-    NSArray *imgs = @[@"guide-1",@"guide-2",@"guide-3",@"guide-4"];
-    
-    for (NSInteger i = 0; i < imgs.count; i++) {
+    for (NSInteger i = 0; i < self.imgs.count; i++) {
         
-        UIImageView *imgV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"guide-1"]];
+        UIImageView *imgV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:self.imgs[i]]];
         imgV.frame = CGRectMake(KScreenWidth * i, 0, KScreenWidth, KScreenHeight);
         [_scrollView addSubview:imgV];
     }
     
     //设置scrollView的contentSize
-    _scrollView.contentSize = CGSizeMake(KScreenWidth * imgs.count, KScreenHeight);
+    _scrollView.contentSize = CGSizeMake(KScreenWidth * self.imgs.count, KScreenHeight);
     
     //添加欢迎体检按钮
     [_scrollView addSubview:self.entranceButton];
     
     [self.view addSubview:_scrollView];
+}
+
+- (NSArray *)imgs
+{
+    if (!_imgs) {
+        _imgs = @[@"guide-1",@"guide-2",@"guide-3"];
+    }
+    return _imgs;
 }
 
 /**
@@ -100,7 +108,7 @@
         [_entranceButton setFrame:CGRectMake(0, 0, KScreenWidth * 0.45, 44)];
         _entranceButton.layer.cornerRadius = 5.0f;
         _entranceButton.layer.masksToBounds = YES;
-        [_entranceButton setCenter:CGPointMake(KScreenWidth * 2.5, KScreenHeight * 0.85)];
+        [_entranceButton setCenter:CGPointMake(KScreenWidth * (self.imgs.count - 0.5), KScreenHeight * 0.85)];
     }
     return _entranceButton;
 }

@@ -17,6 +17,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.view setBackgroundColor:DEF_COLOR_A(248, 248, 248, 1)];
+    
     [self createContentView];
     [self setNavigationItem];
 }

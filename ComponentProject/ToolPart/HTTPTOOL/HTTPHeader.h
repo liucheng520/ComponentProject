@@ -14,6 +14,7 @@
 #define kMessage  @"message"
 
 #define Base_URL @""
+#define AdvertImgMethod @""
 
 #pragma mark - 具体的业务地址模块
 

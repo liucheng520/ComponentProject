@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "SecurityStrategy.h"
+#import "BaseManger.h"
 
 @interface AppDelegate ()
 
@@ -17,7 +18,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window makeKeyAndVisible];
+    
+    [BaseManger setTheRootviewController];
+    [BaseManger setGenericProperties];
     return YES;
 }
 

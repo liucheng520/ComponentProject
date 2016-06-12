@@ -25,8 +25,10 @@
 		8E0F06271D07FC9E00E4016F /* YCPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F06211D07FC9E00E4016F /* YCPhotoView.m */; };
 		8E0F06281D07FC9E00E4016F /* ZoomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F06231D07FC9E00E4016F /* ZoomTransition.m */; };
 		8E0F3DF61D0CF8C4006DED54 /* 关于苹果内购（IAP）的一些问题以及那些坑 - kongying19910218的博客 - 博客频道 - CSDN.NET.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8E0F3DF51D0CF8C3006DED54 /* 关于苹果内购（IAP）的一些问题以及那些坑 - kongying19910218的博客 - 博客频道 - CSDN.NET.pdf */; };
+		8E0F3E0E1D0D375D006DED54 /* AdvertImageManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F3E091D0D375D006DED54 /* AdvertImageManger.m */; };
+		8E0F3E101D0D375D006DED54 /* AdvertImageShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F3E0D1D0D375D006DED54 /* AdvertImageShowView.m */; };
 		8E8399B41D06A249002AFF41 /* TextInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8399B31D06A249002AFF41 /* TextInputView.m */; };
-		8E8399BC1D06C9D6002AFF41 /* InPutview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8399BB1D06C9D6002AFF41 /* InPutview.m */; };
+		8E8399BC1D06C9D6002AFF41 /* LoginInPutview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8399BB1D06C9D6002AFF41 /* LoginInPutview.m */; };
 		8ED0E9DA1D0558C0002BC4D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0E9D91D0558C0002BC4D7 /* main.m */; };
 		8ED0E9DD1D0558C0002BC4D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0E9DC1D0558C0002BC4D7 /* AppDelegate.m */; };
 		8ED0E9E51D0558C0002BC4D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8ED0E9E41D0558C0002BC4D7 /* Assets.xcassets */; };
@@ -117,10 +119,14 @@
 		8E0F06221D07FC9E00E4016F /* ZoomTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomTransition.h; sourceTree = "<group>"; };
 		8E0F06231D07FC9E00E4016F /* ZoomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomTransition.m; sourceTree = "<group>"; };
 		8E0F3DF51D0CF8C3006DED54 /* 关于苹果内购（IAP）的一些问题以及那些坑 - kongying19910218的博客 - 博客频道 - CSDN.NET.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "关于苹果内购（IAP）的一些问题以及那些坑 - kongying19910218的博客 - 博客频道 - CSDN.NET.pdf"; sourceTree = "<group>"; };
+		8E0F3E081D0D375D006DED54 /* AdvertImageManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvertImageManger.h; sourceTree = "<group>"; };
+		8E0F3E091D0D375D006DED54 /* AdvertImageManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvertImageManger.m; sourceTree = "<group>"; };
+		8E0F3E0C1D0D375D006DED54 /* AdvertImageShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvertImageShowView.h; sourceTree = "<group>"; };
+		8E0F3E0D1D0D375D006DED54 /* AdvertImageShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvertImageShowView.m; sourceTree = "<group>"; };
 		8E8399B21D06A249002AFF41 /* TextInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextInputView.h; sourceTree = "<group>"; };
 		8E8399B31D06A249002AFF41 /* TextInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextInputView.m; sourceTree = "<group>"; };
-		8E8399BA1D06C9D6002AFF41 /* InPutview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InPutview.h; sourceTree = "<group>"; };
-		8E8399BB1D06C9D6002AFF41 /* InPutview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InPutview.m; sourceTree = "<group>"; };
+		8E8399BA1D06C9D6002AFF41 /* LoginInPutview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginInPutview.h; sourceTree = "<group>"; };
+		8E8399BB1D06C9D6002AFF41 /* LoginInPutview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginInPutview.m; sourceTree = "<group>"; };
 		8ED0E9D51D0558BF002BC4D7 /* ComponentProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComponentProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ED0E9D91D0558C0002BC4D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8ED0E9DB1D0558C0002BC4D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
@@ -314,6 +320,17 @@
 			path = YCPhotoBrowser;
 			sourceTree = "<group>";
 		};
+		8E0F3E071D0D375D006DED54 /* AdvertImageManger */ = {
+			isa = PBXGroup;
+			children = (
+				8E0F3E081D0D375D006DED54 /* AdvertImageManger.h */,
+				8E0F3E091D0D375D006DED54 /* AdvertImageManger.m */,
+				8E0F3E0C1D0D375D006DED54 /* AdvertImageShowView.h */,
+				8E0F3E0D1D0D375D006DED54 /* AdvertImageShowView.m */,
+			);
+			path = AdvertImageManger;
+			sourceTree = "<group>";
+		};
 		8E8399B11D06A249002AFF41 /* TextInputTextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,8 +343,8 @@
 		8E8399B91D06C9D6002AFF41 /* LoginInputView */ = {
 			isa = PBXGroup;
 			children = (
-				8E8399BA1D06C9D6002AFF41 /* InPutview.h */,
-				8E8399BB1D06C9D6002AFF41 /* InPutview.m */,
+				8E8399BA1D06C9D6002AFF41 /* LoginInPutview.h */,
+				8E8399BB1D06C9D6002AFF41 /* LoginInPutview.m */,
 			);
 			path = LoginInputView;
 			sourceTree = "<group>";
@@ -457,6 +474,7 @@
 		8ED0EA111D055EE7002BC4D7 /* ThreeParty */ = {
 			isa = PBXGroup;
 			children = (
+				8E0F3E071D0D375D006DED54 /* AdvertImageManger */,
 				8E0F06191D07FC9E00E4016F /* YCPhotoBrowser */,
 				8E0F05C81D07E69500E4016F /* Encrypting */,
 				8E0F05C11D07E43800E4016F /* BlurGlass */,
@@ -809,6 +827,7 @@
 				8ED0EA2A1D056335002BC4D7 /* MainTabBarController.m in Sources */,
 				8ED0EA841D057822002BC4D7 /* XXSYAdPageView.m in Sources */,
 				8ED0EA511D057552002BC4D7 /* NSDateFormatter+Category.m in Sources */,
+				8E0F3E0E1D0D375D006DED54 /* AdvertImageManger.m in Sources */,
 				8ED0EA181D056058002BC4D7 /* BaseViewController.m in Sources */,
 				8ED0EA7D1D05779F002BC4D7 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				8ED0E9DD1D0558C0002BC4D7 /* AppDelegate.m in Sources */,
@@ -847,7 +866,8 @@
 				8E0F05C71D07E43800E4016F /* UIImage+BlurGlass.m in Sources */,
 				8ED0EA701D05771D002BC4D7 /* LCPlaceHolderTextView.m in Sources */,
 				8E0F05E11D07E69500E4016F /* GTMBase64.m in Sources */,
-				8E8399BC1D06C9D6002AFF41 /* InPutview.m in Sources */,
+				8E0F3E101D0D375D006DED54 /* AdvertImageShowView.m in Sources */,
+				8E8399BC1D06C9D6002AFF41 /* LoginInPutview.m in Sources */,
 				8ED0EA7A1D05779F002BC4D7 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				8ED0EA651D0576A8002BC4D7 /* PlaceModel.m in Sources */,
 			);

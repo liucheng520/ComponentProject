@@ -17,6 +17,11 @@
     return [string stringByReplacingOccurrencesOfString:@"//" withString:@"/"];
 }
 
+- (NSString *)cutwhitespace
+{
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+}
+
 //计算文本的大小
 - (CGSize)sizeOfMaxSize:(CGSize)maxSize fontSize:(CGFloat)fontSize
 {
@@ -167,6 +172,15 @@
     NSString *match=@"(^[\u4e00-\u9fa5]+$)";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF matches %@", match];
     return [predicate evaluateWithObject:self];
+}
+
+- (NSString *)absolutePath
+{
+    if (![self hasPrefix:@"http"]) {
+        NSString *fullUrl =  [NSString stringWithFormat:@"%@%@",Base_URL,self];
+        return fullUrl;
+    }
+    return self;
 }
 
 @end
