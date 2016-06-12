@@ -24,6 +24,7 @@
 		8E0F06261D07FC9E00E4016F /* YCPhotosPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F061F1D07FC9E00E4016F /* YCPhotosPageViewController.m */; };
 		8E0F06271D07FC9E00E4016F /* YCPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F06211D07FC9E00E4016F /* YCPhotoView.m */; };
 		8E0F06281D07FC9E00E4016F /* ZoomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F06231D07FC9E00E4016F /* ZoomTransition.m */; };
+		8E0F3DF61D0CF8C4006DED54 /* 关于苹果内购（IAP）的一些问题以及那些坑 - kongying19910218的博客 - 博客频道 - CSDN.NET.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8E0F3DF51D0CF8C3006DED54 /* 关于苹果内购（IAP）的一些问题以及那些坑 - kongying19910218的博客 - 博客频道 - CSDN.NET.pdf */; };
 		8E8399B41D06A249002AFF41 /* TextInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8399B31D06A249002AFF41 /* TextInputView.m */; };
 		8E8399BC1D06C9D6002AFF41 /* InPutview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8399BB1D06C9D6002AFF41 /* InPutview.m */; };
 		8ED0E9DA1D0558C0002BC4D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0E9D91D0558C0002BC4D7 /* main.m */; };
@@ -115,6 +116,7 @@
 		8E0F06211D07FC9E00E4016F /* YCPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCPhotoView.m; sourceTree = "<group>"; };
 		8E0F06221D07FC9E00E4016F /* ZoomTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomTransition.h; sourceTree = "<group>"; };
 		8E0F06231D07FC9E00E4016F /* ZoomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomTransition.m; sourceTree = "<group>"; };
+		8E0F3DF51D0CF8C3006DED54 /* 关于苹果内购（IAP）的一些问题以及那些坑 - kongying19910218的博客 - 博客频道 - CSDN.NET.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "关于苹果内购（IAP）的一些问题以及那些坑 - kongying19910218的博客 - 博客频道 - CSDN.NET.pdf"; sourceTree = "<group>"; };
 		8E8399B21D06A249002AFF41 /* TextInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextInputView.h; sourceTree = "<group>"; };
 		8E8399B31D06A249002AFF41 /* TextInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextInputView.m; sourceTree = "<group>"; };
 		8E8399BA1D06C9D6002AFF41 /* InPutview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InPutview.h; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 		8E0F06081D07F40F00E4016F /* File */ = {
 			isa = PBXGroup;
 			children = (
+				8E0F3DF51D0CF8C3006DED54 /* 关于苹果内购（IAP）的一些问题以及那些坑 - kongying19910218的博客 - 博客频道 - CSDN.NET.pdf */,
 				8E0F06091D07F41F00E4016F /* 代码提交检查.doc */,
 				8E0F060A1D07F41F00E4016F /* 利用pod_trunk发布程序.md */,
 				8E0F060C1D07F41F00E4016F /* 正确使用AFNetworking的SSL保证网络安全 - 简书.html */,
@@ -719,6 +722,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E0F3DF61D0CF8C4006DED54 /* 关于苹果内购（IAP）的一些问题以及那些坑 - kongying19910218的博客 - 博客频道 - CSDN.NET.pdf in Resources */,
 				8ED0E9E81D0558C0002BC4D7 /* LaunchScreen.storyboard in Resources */,
 				8E0F06111D07F41F00E4016F /* 代码提交检查.doc in Resources */,
 				8E0F06151D07F41F00E4016F /* cocospod 安装和使用 - eqera的专栏 - 博客频道 - CSDN.NET.webarchive in Resources */,
