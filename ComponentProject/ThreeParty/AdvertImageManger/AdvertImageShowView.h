@@ -11,6 +11,9 @@
 
 @interface AdvertImageShowView : UIView
 
+/**
+ *  显示缓存的图片
+ */
 + (void)startAdvertViewOnContainer:(UIView *)containerView;
 
 @end
