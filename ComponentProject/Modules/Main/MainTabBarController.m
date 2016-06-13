@@ -7,6 +7,8 @@
 //
 
 #import "MainTabBarController.h"
+#import "BaseViewController.h"
+#import "BaseNavigationController.h"
 
 @interface MainTabBarController ()
 
@@ -14,24 +16,35 @@
 
 @implementation MainTabBarController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self addChildViewControllers];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)addChildViewControllers
+{
+    //日常
+    [self addChildContrllerWith:@"CSDailyController" title:@"日常" imageName:@"tabbar_daily_unSelect" selectImageName:@"tabbar_daily_select"];
+    //通讯录
+    [self addChildContrllerWith:@"CSAddressListController" title:@"通讯录" imageName:@"tabbar_addList_unSelect" selectImageName:@"tabbar_addList_select"];
+    //我
+    [self addChildContrllerWith:@"CSPersonalController" title:@"我" imageName:@"tabbar_self_unSelect" selectImageName:@"tabbar_self_select"];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)addChildContrllerWith:(NSString *)controllerName title:(NSString *)title imageName:(NSString *)imageName selectImageName:(NSString *)selectImgName
+{
+    Class cls = NSClassFromString(controllerName);
+    BaseViewController *controller = [[cls alloc] init];
+    self.tabBar.tintColor = [UIColor blackColor];
+    controller.tabBarItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    controller.tabBarItem.selectedImage = [[UIImage imageNamed:selectImgName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    controller.tabBarItem.title = title;
+    
+    BaseNavigationController *navi = [[BaseNavigationController alloc] initWithRootViewController:controller];
+    [self addChildViewController:navi];
 }
-*/
+
+
 
 @end

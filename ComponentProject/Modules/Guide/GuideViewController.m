@@ -22,7 +22,6 @@
 
 @implementation GuideViewController
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -87,7 +86,7 @@
 {
     int num = scrollView.contentOffset.x;
     
-    if(num>KScreenWidth*2){ //滑动进入
+    if(num > KScreenWidth*2){ //滑动进入
         
       [[UIApplication sharedApplication].keyWindow setRootViewController:[[BaseNavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]]];
     }

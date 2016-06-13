@@ -10,6 +10,8 @@
 
 @interface UIImage (Extention)
 
+- (UIImage *)circleImage;
+
 /**
  *  图片拉伸
  */

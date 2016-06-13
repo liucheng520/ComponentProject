@@ -16,4 +16,10 @@
 
 - (void)lc_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder;
 
+/**
+ *  对图片进行圆角处理
+ *  当头像显示为原型图片时，直接传url
+ */
+- (void)setHeardWithUrl:(NSString *)hearUrl;
+
 @end

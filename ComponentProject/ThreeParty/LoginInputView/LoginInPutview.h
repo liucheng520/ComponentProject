@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger,LoginInPutType) {
+    
     LoginInPutTypeUserName_Line = 1, //下滑线
     LoginInPutTypePassWord_Line,
+    
     LoginInPutTypeUserName_BackGroundImage, //背景图片
     LoginInPutTypePassWord_BackGroundImage,
 };
+
+#define LOGIN_LEFT_MARGIN  15.0f
 
 @interface LoginInPutview : UIView
 
@@ -30,7 +34,12 @@ typedef NS_ENUM(NSInteger,LoginInPutType) {
 @property (nonatomic,assign) LoginInPutType type;
 
 /**
- *  set the loginInputView backGroundImage
+ *  set the UserNameKeyboardType
+ */
+@property (nonatomic,assign) UIKeyboardType keyboardType;
+
+/**
+ *  set the loginInputView backGroundImage ,if the type is LoginInPutTypeUserName_Line or LoginInPutTypePassWord_Line ,you needn't set this property
  */
 @property (nonatomic,copy) NSString *backGroundImgString;
 

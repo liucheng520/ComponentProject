@@ -20,4 +20,12 @@
     [self sd_setImageWithURL:url placeholderImage:placeholder];
 }
 
+- (void)setHeardWithUrl:(NSString *)hearUrl
+{
+    UIImage *placeHolder = [[UIImage imageNamed:PLACEHOLDER_IMAGE] circleImage];
+    [self sd_setImageWithURL:[NSURL URLWithString:hearUrl] placeholderImage:placeHolder options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        self.image = image ? image : placeHolder;
+    }];
+}
+
 @end

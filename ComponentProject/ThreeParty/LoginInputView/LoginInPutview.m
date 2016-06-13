@@ -8,8 +8,6 @@
 
 #import "LoginInPutview.h"
 
-#define kLoginfont [UIFont systemFontOfSize:15.0f]
-
 @interface LoginInPutview()
 
 //the TextField
@@ -42,6 +40,7 @@
     if (self = [super initWithFrame:frame]) {
         
         [self addSubview:self.backGroundImageView];
+        [self addSubview:self.underLine];
         [self.backGroundImageView addSubview:self.textField];
         [self.backGroundImageView addSubview:self.leftImageView];
     }
@@ -56,12 +55,97 @@
 - (void)setType:(LoginInPutType)type
 {
     _type = type;
+    
+    switch (_type) {
+        case LoginInPutTypeUserName_Line:
+        {
+            [self.underLine setBackgroundColor:[UIColor whiteColor]];
+            [self.backGroundImageView setBackgroundColor:[UIColor clearColor]];
+            self.textField.returnKeyType = UIReturnKeyNext;
+        }
+            break;
+        case LoginInPutTypePassWord_Line:
+        {
+            [self.underLine setBackgroundColor:[UIColor whiteColor]];
+            [self.backGroundImageView setBackgroundColor:[UIColor clearColor]];
+            self.textField.returnKeyType = UIReturnKeyDone;
+            self.textField.secureTextEntry = YES;
+        }
+            break;
+        case LoginInPutTypeUserName_BackGroundImage:
+        {
+            [self.underLine setBackgroundColor:[UIColor clearColor]];
+            [self.backGroundImageView setImage:[UIImage imageNamed:self.backGroundImgString]];
+            self.textField.returnKeyType = UIReturnKeyNext;
+        }
+            break;
+        case LoginInPutTypePassWord_BackGroundImage:
+        {
+            [self.underLine setBackgroundColor:[UIColor whiteColor]];
+            [self.backGroundImageView setImage:[UIImage imageNamed:self.backGroundImgString]];
+             self.textField.returnKeyType = UIReturnKeyDone;
+            self.textField.secureTextEntry = YES;
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)setBackGroundImgString:(NSString *)backGroundImgString
+{
+    _backGroundImgString = backGroundImgString;
+    [self.backGroundImageView setImage:[UIImage imageNamed:_backGroundImgString]];
+}
+
+- (void)setKeyboardType:(UIKeyboardType)keyboardType
+{
+    _keyboardType = keyboardType;
+    self.textField.keyboardType = keyboardType;
+}
+
+- (void)setImageString:(NSString *)imageString
+{
+    _imageString = imageString;
+    [self.leftImageView setImage:[UIImage imageNamed:_imageString]];
+}
+
+- (void)setPlaceHolder:(NSString *)placeHolder
+{
+    _placeHolder = placeHolder;
+    self.textField.placeholder = _placeHolder;
+}
+
+- (void)setFont:(UIFont *)font
+{
+    _font = font;
+    self.textField.font = _font;
+    self.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.placeHolder attributes:@{NSFontAttributeName:_font}];
+}
+
+- (void)setTextColor:(UIColor *)textColor
+{
+    _textColor = textColor;
+    self.textField.textColor = _textColor;
+}
+
+- (void)setPlaceHolderColor:(UIColor *)placeHolderColor
+{
+    _placeHolderColor = placeHolderColor;
+    self.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.placeHolder attributes:@{NSForegroundColorAttributeName:_placeHolderColor}];
 }
 
 #pragma mark - 设置frame
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    self.backGroundImageView.frame = self.bounds;
+
+    CGFloat upMargin = (self.height - self.leftImageView.image.size.height)*0.5;
+    self.leftImageView.frame = CGRectMake(LOGIN_LEFT_MARGIN + 10, upMargin, self.leftImageView.image.size.width, self.leftImageView.image.size.height);
+    self.underLine.frame = CGRectMake(LOGIN_LEFT_MARGIN, self.height - 1, self.width - LOGIN_LEFT_MARGIN * 2, 1);
+    self.textField.frame = CGRectMake(CGRectGetMaxX(self.leftImageView.frame) + 5, 0, self.width - LOGIN_LEFT_MARGIN * 3 - self.leftImageView.size.width - 5, self.height);
 }
 
 #pragma mark - lazy UI
@@ -91,8 +175,15 @@
     if (!_backGroundImageView) {
         _backGroundImageView = [[UIImageView alloc]init];
         _backGroundImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _backGroundImageView.userInteractionEnabled = YES;
     }
     return _backGroundImageView;
+}
+
+- (BOOL)becomeFirstResponder
+{
+    [self.textField becomeFirstResponder];
+    return YES;
 }
 
 - (UIImageView *)underLine

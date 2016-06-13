@@ -18,6 +18,7 @@
 #import "UIImage+Extention.h"
 #import "NSString+Extention.h"
 #import "UIImageView+Extention.h"
+#import "UIBarButtonItem+MJ.h"
 
 #pragma mark - 工具类
 #import "Check.h"
@@ -71,5 +72,6 @@ return __singleton__; \
 }
 
 #pragma mark - 应用内相关设置
+#define PLACEHOLDER_IMAGE @"placeHolder"
 
 #endif /* PrefixHeader_pch */
