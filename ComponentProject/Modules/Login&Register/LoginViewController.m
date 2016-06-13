@@ -35,8 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    [self addTapGesture];
+
 }
 
 #pragma mark - 登录按钮点击
@@ -92,18 +91,6 @@
 - (void)registerButtonClick
 {
     
-}
-
-#pragma mark - 添加点击手势，回收键盘
-- (void)addTapGesture
-{
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGestureClick)];
-    [self.view addGestureRecognizer:tapGesture];
-}
-
-- (void)tapGestureClick
-{
-    [self.view endEditing:YES];
 }
 
 #pragma mark - 主视图创建
