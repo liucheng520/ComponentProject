@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "LoginInPutview.h"
 #import "MainTabBarController.h"
+#import "TPKeyboardAvoidingScrollView.h"
 
 //0,默认不选中，1 默认旋踵
 #define kRememberButtonTag 1
@@ -35,7 +36,7 @@
 {
     [super viewDidLoad];
     
-    [self addTapGesture];
+//    [self addTapGesture];
 }
 
 #pragma mark - 登录按钮点击
@@ -75,6 +76,7 @@
 #pragma mark - 记住密码按钮点击
 - (void)rememberButtonClick:(UIButton *)btn
 {
+    [self.view endEditing:YES];
     NSString *imageName = ((btn.tag = !btn.tag) == 0) ? @"remember_unSelect" : @"remember_select";
     [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
 }
@@ -82,6 +84,7 @@
 #pragma mark - 忘记密码点击
 - (void)forgetButtonClick
 {
+    [self.view endEditing:YES];
     //TODO:
 }
 
@@ -108,14 +111,17 @@
 {
     self.title = @"登录";
     
-    UIImageView *imagev = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    UIImageView *imagev = [[UIImageView alloc] initWithFrame:CGRectMake(0, -64, KScreenWidth, KScreenHeight)];
     imagev.userInteractionEnabled = YES;
     [imagev setImage:[UIImage imageNamed:@"backGround"]];
     self.view = imagev;
     
+    TPKeyboardAvoidingScrollView *bgScrollview = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview: bgScrollview];
+    
     //用户名
-    self.userName = [LoginInPutview inputViewWithContainer:self.view delegate:self];
-    self.userName.frame = CGRectMake(0, 200, KScreenWidth, 60);
+    self.userName = [LoginInPutview inputViewWithContainer:bgScrollview delegate:self];
+    self.userName.frame = CGRectMake(0, 100, KScreenWidth, 60);
     self.userName.placeHolder = @"请输入手机号";
     self.userName.imageString = @"login_phone";
     self.userName.font = LOGIN_FONT;
@@ -125,7 +131,7 @@
     self.userName.keyboardType = UIKeyboardTypeNumberPad;
     
     //用户名
-    self.passWord = [LoginInPutview inputViewWithContainer:self.view delegate:self];
+    self.passWord = [LoginInPutview inputViewWithContainer:bgScrollview delegate:self];
     self.passWord.frame = CGRectMake(0, CGRectGetMaxY(self.userName.frame), KScreenWidth, 60);
     self.passWord.placeHolder = @"请输入密码(6-16个字符)";
     self.passWord.imageString = @"login_password";
@@ -135,13 +141,13 @@
     self.passWord.type = LoginInPutTypePassWord_Line;
     
     //记住密码按钮
-    [self.view addSubview:self.rememberButton];
+    [bgScrollview addSubview:self.rememberButton];
     
     //忘记密码按钮
-    [self.view addSubview:self.forgetPassWordButton];
+    [bgScrollview addSubview:self.forgetPassWordButton];
     
     //登录按钮
-    [self.view addSubview:self.loginButton];
+    [bgScrollview addSubview:self.loginButton];
 }
 
 - (void)setNavigationItem
