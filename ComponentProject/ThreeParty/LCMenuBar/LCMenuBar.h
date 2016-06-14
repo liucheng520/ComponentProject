@@ -27,6 +27,12 @@ typedef void(^SelectIndex)(NSInteger);
  */
 - (void)setTitle:(NSString *)title img:(NSString *)imgName atIndex:(NSInteger)index;
 /**
+ *  you can choose the second or third index
+ *
+ *  @param select the index
+ */
+- (void)setOrinalSeletAtIndex:(NSInteger)index;
+/**
  *  show the menuBar
  */
 - (void)showMenuBarOnView:(UIView *)view menuBarChange:(void (^) (NSInteger index))selectIndex;

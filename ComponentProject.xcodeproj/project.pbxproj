@@ -29,6 +29,10 @@
 		8E0F3E101D0D375D006DED54 /* AdvertImageShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F3E0D1D0D375D006DED54 /* AdvertImageShowView.m */; };
 		8E8399B41D06A249002AFF41 /* TextInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8399B31D06A249002AFF41 /* TextInputView.m */; };
 		8E8399BC1D06C9D6002AFF41 /* LoginInPutview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8399BB1D06C9D6002AFF41 /* LoginInPutview.m */; };
+		8E99B58D1D100BC4006F619F /* AddImgCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E99B5861D100BC4006F619F /* AddImgCollectionViewCell.m */; };
+		8E99B58E1D100BC4006F619F /* AddReportImgCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E99B5881D100BC4006F619F /* AddReportImgCell.m */; };
+		8E99B58F1D100BC4006F619F /* MeetingMemberCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E99B58A1D100BC4006F619F /* MeetingMemberCollectionViewCell.m */; };
+		8E99B5901D100BC4006F619F /* MeetingMemberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E99B58C1D100BC4006F619F /* MeetingMemberView.m */; };
 		8ED0E9DA1D0558C0002BC4D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0E9D91D0558C0002BC4D7 /* main.m */; };
 		8ED0E9DD1D0558C0002BC4D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0E9DC1D0558C0002BC4D7 /* AppDelegate.m */; };
 		8ED0E9E51D0558C0002BC4D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8ED0E9E41D0558C0002BC4D7 /* Assets.xcassets */; };
@@ -127,6 +131,14 @@
 		8E8399B31D06A249002AFF41 /* TextInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextInputView.m; sourceTree = "<group>"; };
 		8E8399BA1D06C9D6002AFF41 /* LoginInPutview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginInPutview.h; sourceTree = "<group>"; };
 		8E8399BB1D06C9D6002AFF41 /* LoginInPutview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginInPutview.m; sourceTree = "<group>"; };
+		8E99B5851D100BC4006F619F /* AddImgCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddImgCollectionViewCell.h; sourceTree = "<group>"; };
+		8E99B5861D100BC4006F619F /* AddImgCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddImgCollectionViewCell.m; sourceTree = "<group>"; };
+		8E99B5871D100BC4006F619F /* AddReportImgCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddReportImgCell.h; sourceTree = "<group>"; };
+		8E99B5881D100BC4006F619F /* AddReportImgCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddReportImgCell.m; sourceTree = "<group>"; };
+		8E99B5891D100BC4006F619F /* MeetingMemberCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingMemberCollectionViewCell.h; sourceTree = "<group>"; };
+		8E99B58A1D100BC4006F619F /* MeetingMemberCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingMemberCollectionViewCell.m; sourceTree = "<group>"; };
+		8E99B58B1D100BC4006F619F /* MeetingMemberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingMemberView.h; sourceTree = "<group>"; };
+		8E99B58C1D100BC4006F619F /* MeetingMemberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingMemberView.m; sourceTree = "<group>"; };
 		8ED0E9D51D0558BF002BC4D7 /* ComponentProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComponentProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ED0E9D91D0558C0002BC4D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8ED0E9DB1D0558C0002BC4D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
@@ -349,6 +361,21 @@
 			path = LoginInputView;
 			sourceTree = "<group>";
 		};
+		8E99B5841D0FFD90006F619F /* LCPictureAdd */ = {
+			isa = PBXGroup;
+			children = (
+				8E99B5851D100BC4006F619F /* AddImgCollectionViewCell.h */,
+				8E99B5861D100BC4006F619F /* AddImgCollectionViewCell.m */,
+				8E99B5871D100BC4006F619F /* AddReportImgCell.h */,
+				8E99B5881D100BC4006F619F /* AddReportImgCell.m */,
+				8E99B5891D100BC4006F619F /* MeetingMemberCollectionViewCell.h */,
+				8E99B58A1D100BC4006F619F /* MeetingMemberCollectionViewCell.m */,
+				8E99B58B1D100BC4006F619F /* MeetingMemberView.h */,
+				8E99B58C1D100BC4006F619F /* MeetingMemberView.m */,
+			);
+			path = LCPictureAdd;
+			sourceTree = "<group>";
+		};
 		8ED0E9CC1D0558BF002BC4D7 = {
 			isa = PBXGroup;
 			children = (
@@ -474,6 +501,7 @@
 		8ED0EA111D055EE7002BC4D7 /* ThreeParty */ = {
 			isa = PBXGroup;
 			children = (
+				8E99B5841D0FFD90006F619F /* LCPictureAdd */,
 				8E0F3E071D0D375D006DED54 /* AdvertImageManger */,
 				8E0F06191D07FC9E00E4016F /* YCPhotoBrowser */,
 				8E0F05C81D07E69500E4016F /* Encrypting */,
@@ -826,6 +854,7 @@
 				8ED0EA9A1D057B17002BC4D7 /* HTTPConstString.m in Sources */,
 				8ED0EA2A1D056335002BC4D7 /* MainTabBarController.m in Sources */,
 				8ED0EA841D057822002BC4D7 /* XXSYAdPageView.m in Sources */,
+				8E99B5901D100BC4006F619F /* MeetingMemberView.m in Sources */,
 				8ED0EA511D057552002BC4D7 /* NSDateFormatter+Category.m in Sources */,
 				8E0F3E0E1D0D375D006DED54 /* AdvertImageManger.m in Sources */,
 				8ED0EA181D056058002BC4D7 /* BaseViewController.m in Sources */,
@@ -837,6 +866,7 @@
 				8ED0EA271D0562F8002BC4D7 /* BaseNavigationController.m in Sources */,
 				8ED0EA7C1D05779F002BC4D7 /* TPKeyboardAvoidingTableView.m in Sources */,
 				8ED0EA2D1D056368002BC4D7 /* UserInfoModel.m in Sources */,
+				8E99B58D1D100BC4006F619F /* AddImgCollectionViewCell.m in Sources */,
 				8E0F06271D07FC9E00E4016F /* YCPhotoView.m in Sources */,
 				8E8399B41D06A249002AFF41 /* TextInputView.m in Sources */,
 				8ED0EA991D057B17002BC4D7 /* ErrorPromt.m in Sources */,
@@ -844,6 +874,7 @@
 				8ED0EA441D0574E7002BC4D7 /* ZWEmoji.m in Sources */,
 				8ED0EA241D0562C9002BC4D7 /* LoginViewController.m in Sources */,
 				8ED0EA561D057574002BC4D7 /* UIColor+Common.m in Sources */,
+				8E99B58F1D100BC4006F619F /* MeetingMemberCollectionViewCell.m in Sources */,
 				8ED0EA8D1D057A8C002BC4D7 /* UIImageView+Extention.m in Sources */,
 				8ED0EA611D05768C002BC4D7 /* Check.m in Sources */,
 				8E0F06241D07FC9E00E4016F /* PhotoItem.m in Sources */,
@@ -862,6 +893,7 @@
 				8ED0EA211D0562BE002BC4D7 /* GuideViewController.m in Sources */,
 				8E0F05E01D07E69500E4016F /* AESCrypt.m in Sources */,
 				8ED0EA971D057B17002BC4D7 /* AFNHttpTool.m in Sources */,
+				8E99B58E1D100BC4006F619F /* AddReportImgCell.m in Sources */,
 				8ED0EA531D057552002BC4D7 /* UIBarButtonItem+MJ.m in Sources */,
 				8E0F05C71D07E43800E4016F /* UIImage+BlurGlass.m in Sources */,
 				8ED0EA701D05771D002BC4D7 /* LCPlaceHolderTextView.m in Sources */,

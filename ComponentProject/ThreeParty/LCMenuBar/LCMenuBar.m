@@ -84,6 +84,28 @@
     }
 }
 
+- (void)setOrinalSeletAtIndex:(NSInteger)index
+{
+    if (index < self.buttons.count) {
+        
+        menuBarButton *chooseBtn = self.buttons[index];
+        
+        [self.selectBtn setEnabled:YES];
+        [chooseBtn setEnabled:NO];
+        self.selectBtn = chooseBtn;
+        
+        CGFloat btnW = KScreenWidth / self.buttons.count;
+        
+        self.hoverView.width = chooseBtn.titleLabel.width;
+        self.hoverView.centerX = btnW * index + btnW * 0.5;
+        
+        // 滚动
+        CGPoint offset = self.containView.contentOffset;
+        offset.x = (chooseBtn.tag - 10) * self.containView.width;
+        [self.containView setContentOffset:offset animated:YES];
+    }
+}
+
 - (void)setBadgeValue:(NSInteger)badge atIndex:(NSInteger)index
 {
     if (index < self.buttons.count) {
