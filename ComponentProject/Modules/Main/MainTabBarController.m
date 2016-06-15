@@ -9,6 +9,7 @@
 #import "MainTabBarController.h"
 #import "BaseViewController.h"
 #import "BaseNavigationController.h"
+#import "AddPictureViewController.h"
 
 @interface MainTabBarController ()
 
@@ -25,7 +26,7 @@
 - (void)addChildViewControllers
 {
     //日常
-    [self addChildContrllerWith:@"CSDailyController" title:@"日常" imageName:@"tabbar_daily_unSelect" selectImageName:@"tabbar_daily_select"];
+    [self addChildContrllerWith:@"AddPictureViewController" title:@"日常" imageName:@"tabbar_daily_unSelect" selectImageName:@"tabbar_daily_select"];
     //通讯录
     [self addChildContrllerWith:@"CSAddressListController" title:@"通讯录" imageName:@"tabbar_addList_unSelect" selectImageName:@"tabbar_addList_select"];
     //我
