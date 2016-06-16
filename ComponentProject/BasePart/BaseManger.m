@@ -27,7 +27,7 @@
 
     if ([currentVersion isEqualToString:sanboxVersion]) {
         
-        if ([[UserInfoModel sharedInstance] isLoggedIn]) {
+        if (YES) {
             
             [[UIApplication sharedApplication].keyWindow setRootViewController:[[MainTabBarController alloc] init]];
             

@@ -21,10 +21,13 @@
 
 - (void)createContentView
 {
-    LCPictureAddView *addView = [LCPictureAddView pictureAddView];
-    [addView setBackgroundColor:[UIColor redColor]];
-    addView.frame = CGRectMake(0, 90, KScreenWidth, 100);
-    [self.view addSubview:addView];
+//    LCPictureAddView *addView = [LCPictureAddView pictureAddView];
+//    [addView setBackgroundColor:[UIColor redColor]];
+//    addView.frame = CGRectMake(0, 90, KScreenWidth, 100);
+//    [self.view addSubview:addView];
+    
+    TestView * test = [[TestView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:test];
 }
 
 @end
