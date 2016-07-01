@@ -8,7 +8,7 @@
 
 #import "AddPictureViewController.h"
 #import "LCPictureAddView.h"
-
+#import "TestLayout.h"
 @interface AddPictureViewController ()
 
 @end
@@ -17,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
 }
 
 - (void)createContentView
@@ -25,9 +26,7 @@
 //    [addView setBackgroundColor:[UIColor redColor]];
 //    addView.frame = CGRectMake(0, 90, KScreenWidth, 100);
 //    [self.view addSubview:addView];
-    
-    TestView * test = [[TestView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:test];
+
 }
 
 @end

@@ -63,7 +63,34 @@
  */
 + (void)setGenericProperties
 {
+    // 1.获得网络监控的管理者
+    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
     
+    // 2.设置网络状态改变后的处理
+    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        // 当网络状态改变了, 就会调用这个block
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown: // 未知网络
+                [SVProgressHUD showImage:nil status:@"未知网络"];
+                break;
+                
+            case AFNetworkReachabilityStatusNotReachable: // 没有网络(断网)
+                [SVProgressHUD showErrorWithStatus:@"没有网络(断网)"];
+                break;
+                
+            case AFNetworkReachabilityStatusReachableViaWWAN: // 手机自带网络
+                //                [SVProgressHUD showSuccessWithStatus:@"手机自带网络"];
+                break;
+                
+            case AFNetworkReachabilityStatusReachableViaWiFi: // WIFI
+        
+                //                [SVProgressHUD showSuccessWithStatus:@"WIFI"];
+                break;
+        }
+    }];
+    
+    // 3.开始监控
+    [mgr startMonitoring];
 }
 
 @end

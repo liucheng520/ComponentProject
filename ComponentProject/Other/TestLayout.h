@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TestLayout : UICollectionViewLayout
+SINGLETON_H(layout)
 
 @end

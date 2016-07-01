@@ -7,7 +7,6 @@
 //
 
 #import "BaseViewController.h"
-#import "TestView.h"
 
 @interface AddPictureViewController : BaseViewController
 

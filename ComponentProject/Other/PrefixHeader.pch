@@ -56,19 +56,33 @@
 //是否为iphone6Plus
 #define IS_IPHONE_6PLUS ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )736 ) < DBL_EPSILON )
 
-// 单例
-#undef	AS_SINGLETON
-#define AS_SINGLETON( __class ) \
-+ (__class *)sharedInstance; \
+// 单例创建,要继承NSCopying协议，避免copy时创建不同
+//.h 中
+#define SINGLETON_H(name) \
++ (instancetype)share##name; \
 
-#undef	DEF_SINGLETON
-#define DEF_SINGLETON( __class ) \
-+ (__class *)sharedInstance \
-{ \
-static dispatch_once_t once; \
-static __class * __singleton__; \
-dispatch_once( &once, ^{ __singleton__ = [[__class alloc] init]; } ); \
-return __singleton__; \
+//.m 中
+#define SINGLETON_M(name) \
+static id _instance;\
++ (instancetype)allocWithZone:(struct _NSZone *)zone\
+{\
+    static dispatch_once_t onceToken;\
+    dispatch_once(&onceToken, ^{\
+        _instance = [super allocWithZone:zone];\
+    });\
+    return _instance;\
+}\
++ (instancetype)share##name\
+{\
+    static dispatch_once_t onceToken;\
+    dispatch_once(&onceToken, ^{\
+        _instance = [[self alloc] init];\
+    });\
+    return _instance;\
+}\
+- (id)copyWithZone:(NSZone *)zone\
+{\
+    return _instance;\
 }
 
 #pragma mark - 应用内相关设置

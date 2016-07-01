@@ -9,6 +9,7 @@
 #import "TestLayout.h"
 
 @implementation TestLayout
+SINGLETON_M(layout)
 
 - (instancetype)init
 {
