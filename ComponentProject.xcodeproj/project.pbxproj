@@ -40,6 +40,8 @@
 		8E896C111D2A014B00447DC9 /* FourthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E896C101D2A014B00447DC9 /* FourthViewController.m */; };
 		8E896C151D2A053300447DC9 /* TestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E896C141D2A053300447DC9 /* TestCell.m */; };
 		8E896C181D2A05BC00447DC9 /* TestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E896C171D2A05BC00447DC9 /* TestModel.m */; };
+		8E896C1E1D2A249A00447DC9 /* DXPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E896C1B1D2A249A00447DC9 /* DXPopover.m */; };
+		8E896C1F1D2A249A00447DC9 /* HXMenuTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E896C1D1D2A249A00447DC9 /* HXMenuTableView.m */; };
 		8ED0E9DA1D0558C0002BC4D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0E9D91D0558C0002BC4D7 /* main.m */; };
 		8ED0E9DD1D0558C0002BC4D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0E9DC1D0558C0002BC4D7 /* AppDelegate.m */; };
 		8ED0E9E51D0558C0002BC4D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8ED0E9E41D0558C0002BC4D7 /* Assets.xcassets */; };
@@ -161,6 +163,10 @@
 		8E896C141D2A053300447DC9 /* TestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestCell.m; sourceTree = "<group>"; };
 		8E896C161D2A05BC00447DC9 /* TestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestModel.h; sourceTree = "<group>"; };
 		8E896C171D2A05BC00447DC9 /* TestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestModel.m; sourceTree = "<group>"; };
+		8E896C1A1D2A249A00447DC9 /* DXPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXPopover.h; sourceTree = "<group>"; };
+		8E896C1B1D2A249A00447DC9 /* DXPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXPopover.m; sourceTree = "<group>"; };
+		8E896C1C1D2A249A00447DC9 /* HXMenuTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXMenuTableView.h; sourceTree = "<group>"; };
+		8E896C1D1D2A249A00447DC9 /* HXMenuTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXMenuTableView.m; sourceTree = "<group>"; };
 		8ED0E9D51D0558BF002BC4D7 /* ComponentProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComponentProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ED0E9D91D0558C0002BC4D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8ED0E9DB1D0558C0002BC4D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
@@ -427,6 +433,17 @@
 			name = cell;
 			sourceTree = "<group>";
 		};
+		8E896C191D2A249A00447DC9 /* PopView */ = {
+			isa = PBXGroup;
+			children = (
+				8E896C1A1D2A249A00447DC9 /* DXPopover.h */,
+				8E896C1B1D2A249A00447DC9 /* DXPopover.m */,
+				8E896C1C1D2A249A00447DC9 /* HXMenuTableView.h */,
+				8E896C1D1D2A249A00447DC9 /* HXMenuTableView.m */,
+			);
+			path = PopView;
+			sourceTree = "<group>";
+		};
 		8ED0E9CC1D0558BF002BC4D7 = {
 			isa = PBXGroup;
 			children = (
@@ -556,6 +573,7 @@
 		8ED0EA111D055EE7002BC4D7 /* ThreeParty */ = {
 			isa = PBXGroup;
 			children = (
+				8E896C191D2A249A00447DC9 /* PopView */,
 				8E6B5CB51D10EEFC005F1D06 /* LCPictureAddView */,
 				8E0F3E071D0D375D006DED54 /* AdvertImageManger */,
 				8E0F06191D07FC9E00E4016F /* YCPhotoBrowser */,
@@ -940,6 +958,7 @@
 				8E6B5CCB1D10F48F005F1D06 /* PictureAddCollectionViewCell.m in Sources */,
 				8E0F06241D07FC9E00E4016F /* PhotoItem.m in Sources */,
 				8EFEFB2C1D12AE07004C2B97 /* TestLayout.m in Sources */,
+				8E896C1F1D2A249A00447DC9 /* HXMenuTableView.m in Sources */,
 				8E0F06071D07EF0700E4016F /* zipAndUnzip.m in Sources */,
 				8E896C111D2A014B00447DC9 /* FourthViewController.m in Sources */,
 				8E0F06281D07FC9E00E4016F /* ZoomTransition.m in Sources */,
@@ -954,6 +973,7 @@
 				8ED0EA981D057B17002BC4D7 /* AppleHttpTool.m in Sources */,
 				8ED0E9DA1D0558C0002BC4D7 /* main.m in Sources */,
 				8E896C181D2A05BC00447DC9 /* TestModel.m in Sources */,
+				8E896C1E1D2A249A00447DC9 /* DXPopover.m in Sources */,
 				8ED0EA211D0562BE002BC4D7 /* GuideViewController.m in Sources */,
 				8E0F05E01D07E69500E4016F /* AESCrypt.m in Sources */,
 				8ED0EA971D057B17002BC4D7 /* AFNHttpTool.m in Sources */,
