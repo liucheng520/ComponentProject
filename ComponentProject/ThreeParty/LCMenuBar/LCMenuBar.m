@@ -184,6 +184,8 @@
 
 @property (nonatomic,weak) UILabel *badgeLabel;
 
+@property (nonatomic,assign) CGFloat badgeWidth;
+
 @end
 
 @implementation menuBarButton
@@ -203,6 +205,7 @@
         badgeLabel.hidden = YES;
         [self addSubview:badgeLabel];
         self.badgeLabel = badgeLabel;
+        self.badgeWidth = 15;
     }
     return self;
 }
@@ -213,8 +216,20 @@
     if (_badgeValue <= 0 ) {
         self.badgeLabel.hidden = YES;
     }else{
-        self.badgeLabel.text = [NSString stringWithFormat:@"%ld",_badgeValue];
-        self.badgeLabel.hidden = NO;
+        if(badgeValue > 99){
+            self.badgeLabel.text = @"99+";
+            self.badgeLabel.hidden = NO;
+            [self layoutIfNeeded];
+        }else{
+            self.badgeLabel.text = [NSString stringWithFormat:@"%ld",_badgeValue];
+            self.badgeLabel.hidden = NO;
+        }
+        
+        self.badgeWidth = [self.badgeLabel.text widthWithFont:self.badgeLabel.font height:15];
+        if (self.badgeWidth < 15) {
+            self.badgeWidth = 15;
+        }
+        [self setNeedsLayout];
     }
 }
 /**
@@ -240,7 +255,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.badgeLabel.frame = CGRectMake(CGRectGetMaxX(self.titleLabel.frame) - 2.5, 2.5, 15, 15);
+    self.badgeLabel.frame = CGRectMake(CGRectGetMaxX(self.titleLabel.frame) - 2.5, 2.5, self.badgeWidth, 15);
     self.badgeLabel.layer.cornerRadius = 7.5f;
     self.badgeLabel.layer.masksToBounds = YES;
 }

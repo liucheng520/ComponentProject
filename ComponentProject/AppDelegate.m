@@ -21,7 +21,8 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
-    
+    //从本地更新个人信息
+    [[UserInfoModel sharedInstance] updateInfoFromLocal];
     [BaseManger setTheRootviewController];
     [BaseManger setGenericProperties];
     return YES;
@@ -52,6 +53,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [[UserInfoModel sharedInstance] updateInfoToLocal];
 }
 
 @end

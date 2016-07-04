@@ -14,7 +14,6 @@ SINGLETON_M(layout)
 - (instancetype)init
 {
     if (self = [super init]) {
-        
     }
     return self;
 }

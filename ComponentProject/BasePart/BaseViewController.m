@@ -14,11 +14,13 @@
 
 @implementation BaseViewController
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self.view setBackgroundColor:DEF_COLOR_A(248, 248, 248, 1)];
+    [self.view setBackgroundColor:DEF_COLOR_A(245, 245, 245, 1)];
     
     [self createContentView];
     [self setNavigationItem];

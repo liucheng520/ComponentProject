@@ -76,4 +76,10 @@
     [super layoutSubviews];
     self.placeHolderLabel.frame = CGRectMake(self.textContainerInset.left + 4, self.textContainerInset.top, self.width - self.textContainerInset.left * 2, 15);
 }
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end

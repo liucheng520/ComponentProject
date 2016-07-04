@@ -10,6 +10,10 @@
 #import "BaseViewController.h"
 #import "BaseNavigationController.h"
 #import "AddPictureViewController.h"
+#import "FirstViewController.h"
+#import "SecondViewController.h"
+#import "ThirdViewController.h"
+#import "FourthViewController.h"
 
 @interface MainTabBarController ()
 
@@ -25,12 +29,17 @@
 
 - (void)addChildViewControllers
 {
-    //日常
-    [self addChildContrllerWith:@"AddPictureViewController" title:@"日常" imageName:@"tabbar_daily_unSelect" selectImageName:@"tabbar_daily_select"];
-    //通讯录
-    [self addChildContrllerWith:@"CSAddressListController" title:@"通讯录" imageName:@"tabbar_addList_unSelect" selectImageName:@"tabbar_addList_select"];
-    //我
-    [self addChildContrllerWith:@"CSPersonalController" title:@"我" imageName:@"tabbar_self_unSelect" selectImageName:@"tabbar_self_select"];
+    //1
+    [self addChildContrllerWith:@"FirstViewController" title:@"First" imageName:@"tab_consult" selectImageName:@"tab_consult_select"];
+    
+    //2
+    [self addChildContrllerWith:@"SecondViewController" title:@"Second" imageName:@"tab_homePage" selectImageName:@"tab_homePage_select"];
+    
+    //3
+    [self addChildContrllerWith:@"ThirdViewController" title:@"Third" imageName:@"tab_myCenter" selectImageName:@"tab_myCenter_select"];
+    
+    //4
+    [self addChildContrllerWith:@"FourthViewController" title:@"Fourth" imageName:@"tab_order" selectImageName:@"tab_order_select"];
 }
 
 - (void)addChildContrllerWith:(NSString *)controllerName title:(NSString *)title imageName:(NSString *)imageName selectImageName:(NSString *)selectImgName
@@ -42,6 +51,7 @@
     controller.tabBarItem.selectedImage = [[UIImage imageNamed:selectImgName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     controller.tabBarItem.title = title;
     
+    controller.title = title;
     BaseNavigationController *navi = [[BaseNavigationController alloc] initWithRootViewController:controller];
     [self addChildViewController:navi];
 }

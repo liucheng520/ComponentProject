@@ -52,6 +52,8 @@
         if ([Check checkPhone:first]) {
             
             //TODO：登录接口
+            [UserInfoModel sharedInstance].userId = @"test";
+            [[UserInfoModel sharedInstance] updateInfoToLocal];
             [UIApplication sharedApplication].keyWindow.rootViewController = [[MainTabBarController alloc] init];
         }else{
             [SVProgressHUD showErrorWithStatus:InPutTheWrongPhoneNumberPromt];

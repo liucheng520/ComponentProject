@@ -12,7 +12,6 @@
 
 @property (nonatomic,copy) NSString *userId;
 
-
 #pragma mark - 个人信息处理
 + (UserInfoModel *)sharedInstance;
 

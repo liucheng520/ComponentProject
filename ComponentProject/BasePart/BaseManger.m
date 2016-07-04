@@ -27,7 +27,7 @@
 
     if ([currentVersion isEqualToString:sanboxVersion]) {
         
-        if (YES) {
+        if ([UserInfoModel sharedInstance].userId.length) {
             
             [[UIApplication sharedApplication].keyWindow setRootViewController:[[MainTabBarController alloc] init]];
             
@@ -63,6 +63,7 @@
  */
 + (void)setGenericProperties
 {
+
     // 1.获得网络监控的管理者
     AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
     

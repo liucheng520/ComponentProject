@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TestManger.h"
 @interface TestLayout : UICollectionViewLayout
 SINGLETON_H(layout)
 

@@ -59,7 +59,8 @@
 // 单例创建,要继承NSCopying协议，避免copy时创建不同
 //.h 中
 #define SINGLETON_H(name) \
-+ (instancetype)share##name; \
++ (instancetype)share##name;\
+
 
 //.m 中
 #define SINGLETON_M(name) \
