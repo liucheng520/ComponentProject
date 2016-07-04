@@ -13,7 +13,7 @@
 - (CGFloat)height
 {
     if (!_height) {
-        _height = [self.content heightWithFont:[UIFont systemFontOfSize:15.0f] width:KScreenWidth - 20];
+        _height = [self.content heightWithFont:[UIFont systemFontOfSize:15.0f] width:KScreenWidth - 20] + 10;
     }
     return _height;
 }

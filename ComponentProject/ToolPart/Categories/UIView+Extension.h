@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIView (Extension)
+
 @property (nonatomic, assign) CGFloat x;
 @property (nonatomic, assign) CGFloat y;
 @property (nonatomic, assign) CGFloat centerX;
@@ -16,16 +17,5 @@
 @property (nonatomic, assign) CGFloat width;
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, assign) CGSize size;
-
-
-
-//add by Scott
-/**
- *  画一条虚线
- *
- *  @param lineSpacing 虚线的间隔
- *  @param lineColor   虚线的颜色
- */
-- (void)drawDashLineWithLineSpacing:(int)lineSpacing lineColor:(UIColor *)lineColor;
 
 @end

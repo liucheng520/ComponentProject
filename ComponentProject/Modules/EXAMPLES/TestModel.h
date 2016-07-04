@@ -16,4 +16,6 @@
 
 @property (nonatomic,assign) CGFloat height;
 
++ (NSArray *)getTheShowData;
+
 @end

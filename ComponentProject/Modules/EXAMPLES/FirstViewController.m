@@ -44,9 +44,9 @@
         
         UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(KScreenWidth * i, 0, KScreenWidth, KScreenHeight) style:UITableViewStyleGrouped];
         tableView.tag = 10 + i;
-        tableView.contentInset = UIEdgeInsetsMake(99, 0, 59, 0);
+        tableView.contentInset = UIEdgeInsetsMake(35, 0, 59, 0);
         [tableView setBackgroundColor:DEF_COLOR(233, 233, 233)];
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tableView.showsVerticalScrollIndicator = NO;
         tableView.showsHorizontalScrollIndicator = NO;
         tableView.delegate = self;
@@ -57,6 +57,12 @@
         }
         [self.tableViews addObject:tableView];
     }
+    [self dealWithTheData];
+    
+    [self.menuBar setBadgeValue:3 atIndex:1];
+    [self.menuBar setBadgeValue:66 atIndex:2];
+    [self.menuBar setBadgeValue:200 atIndex:3];
+    [self.menuBar setBadgeValue:3 atIndex:4];
     
     //展示
     __weak FirstViewController *weakSelf = self;
@@ -64,6 +70,7 @@
         weakSelf.showTableView = weakSelf.tableViews[index];
         [weakSelf dealWithTheData];
         
+        [weakSelf.menuBar setBadgeValue:0 atIndex:index];
     }];
 }
 
@@ -71,12 +78,6 @@
 {
     [self.showDataSource removeAllObjects];
 
-        [self.menuBar setBadgeValue:3 atIndex:1];
-        [self.menuBar setBadgeValue:66 atIndex:2];
-        [self.menuBar setBadgeValue:200 atIndex:3];
-        [self.menuBar setBadgeValue:3 atIndex:4];
-
-    
     if (self.showTableView.tag == 10) {
         [self.showDataSource addObjectsFromArray:self.allDataSource];
     }else{
@@ -87,7 +88,7 @@
         }
     }
     [self.showTableView reloadData];
-
+    
 }
 
 - (NSMutableArray *)tableViews
@@ -101,7 +102,7 @@
 - (NSMutableArray *)allDataSource
 {
     if (_allDataSource == nil) {
-        _allDataSource = [NSMutableArray array];
+        _allDataSource = [NSMutableArray arrayWithArray:[TestModel getTheShowData]];
     }
     return _allDataSource;
 }
@@ -128,7 +129,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TestCell *cell = [TestCell cellWithTableView:tableView];
-    cell.model = self.showDataSource[indexPath.row];
+    cell.model = self.showDataSource[indexPath.section];
     return cell;
 }
 
